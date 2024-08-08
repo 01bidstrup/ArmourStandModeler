@@ -1,9 +1,6 @@
 package dev.aucorg.armourstandmodeler;
 
-import dev.aucorg.armourstandmodeler.eventlistener.ArmourStandInteractEventListener;
-import dev.aucorg.armourstandmodeler.eventlistener.InventoryClickEventListener;
-import dev.aucorg.armourstandmodeler.eventlistener.InventoryDragEventListener;
-import dev.aucorg.armourstandmodeler.eventlistener.PlaceArmourStandEventListener;
+import dev.aucorg.armourstandmodeler.eventlistener.*;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
@@ -24,6 +21,8 @@ public final class ArmourStandModeler extends JavaPlugin {
         pluginManager.registerEvents(new PlaceArmourStandEventListener(), this);
         pluginManager.registerEvents(new InventoryClickEventListener(), this);
         pluginManager.registerEvents(new InventoryDragEventListener(), this);
+        pluginManager.registerEvents(new InventoryCloseEventListener(), this);
+
         // Plugin startup logic
 
     }
