@@ -5,7 +5,9 @@ import dev.aucorg.armourstandmodeler.inventory.ArmourStandMainGUI;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 
 import java.util.Arrays;
 
@@ -22,6 +24,10 @@ public class InventoryClickEventListener implements Listener {
 
         // slot and rawslot are only equal if the click is in the gui inventory
         if (event.getSlot() != event.getRawSlot()) {
+            // shift clicking items into the gui is annoying to implement so it is not allowed for now
+            if (event.getClick() == ClickType.SHIFT_LEFT || event.getClick() == ClickType.SHIFT_RIGHT) {
+                event.setCancelled(true);
+            }
             return;
         }
 
