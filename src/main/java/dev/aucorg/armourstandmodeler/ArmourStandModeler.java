@@ -1,5 +1,7 @@
 package dev.aucorg.armourstandmodeler;
 
+import dev.aucorg.armourstandmodeler.eventlistener.ArmourStandInteractEventListener;
+import dev.aucorg.armourstandmodeler.eventlistener.PlaceArmourStandEventListener;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 

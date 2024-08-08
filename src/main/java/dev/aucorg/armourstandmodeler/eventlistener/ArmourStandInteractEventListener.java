@@ -1,4 +1,4 @@
-package dev.aucorg.armourstandmodeler;
+package dev.aucorg.armourstandmodeler.eventlistener;
 
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -19,6 +19,9 @@ public class ArmourStandInteractEventListener implements Listener {
         }
 
         event.setCancelled(true);
+
+
+
         player.sendMessage("Clicked Armour Stand");
     }
 }
