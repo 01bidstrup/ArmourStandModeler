@@ -6,6 +6,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.*;
+import org.bukkit.inventory.InventoryView;
 
 import java.util.Arrays;
 import java.util.Optional;
@@ -14,10 +15,11 @@ import java.util.Optional;
 public class InventoryDragEventListener implements Listener {
     private static final int[] UNLOCKED_SLOTS = new int[] {1, 10, 19, 28, 37, 39};
 
+
+
     @EventHandler
     public void onInventoryDrag(InventoryDragEvent event) {
         Player player = (Player) event.getWhoClicked();
-
 
         if (ArmourStandInteractionMap.isPlayerInteracting(player)) {
             int inventorySize = event.getInventory().getSize();
@@ -33,8 +35,11 @@ public class InventoryDragEventListener implements Listener {
                         event.setCancelled(false);
                         Optional<Integer> slot = event.getRawSlots().stream().findAny();
                         if (slot.isPresent()) {
+                            InventoryView view = event.getView();
+                            view.setCursor(event.getOldCursor());
+
                             Bukkit.getServer().getPluginManager().callEvent(new InventoryClickEvent(
-                                    event.getView(),
+                                    view,
                                     InventoryType.SlotType.CONTAINER,
                                     slot.get(),
                                     ClickType.LEFT,

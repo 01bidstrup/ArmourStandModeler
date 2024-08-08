@@ -1,6 +1,7 @@
 package dev.aucorg.armourstandmodeler.eventlistener;
 
 import dev.aucorg.armourstandmodeler.ArmourStandInteractionMap;
+import dev.aucorg.armourstandmodeler.inventory.ArmourStandMainGUI;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -28,6 +29,6 @@ public class InventoryClickEventListener implements Listener {
             event.setCancelled(true);
         }
 
-
+        ArmourStandMainGUI.handleGUIClickEvent(event);
     }
 }

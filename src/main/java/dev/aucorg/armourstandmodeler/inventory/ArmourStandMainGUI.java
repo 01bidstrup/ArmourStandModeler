@@ -1,10 +1,12 @@
 package dev.aucorg.armourstandmodeler.inventory;
 
+import dev.aucorg.armourstandmodeler.ArmourStandInteractionMap;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.EntityEquipment;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -220,6 +222,35 @@ public class ArmourStandMainGUI {
                 .build();
 
         return guiButtons;
+    }
+
+    public static void handleGUIClickEvent(InventoryClickEvent event) {
+        int slot = event.getRawSlot();
+
+        Player player = (Player) event.getWhoClicked();
+        ArmorStand armourStand = ArmourStandInteractionMap.getArmourStand(player);
+
+        // the item on the cursor prior to the event going through
+        ItemStack cursor = event.getCursor();
+
+        // the item in the clicked slot prior to the event going through
+        ItemStack clickedItem = event.getCurrentItem();
+
+
+        switch (slot) {
+            case 1:
+                armourStand.getEquipment().setHelmet(cursor);
+                break;
+            case 10:
+                armourStand.getEquipment().setChestplate(cursor);
+                break;
+            case 19:
+                armourStand.getEquipment().setLeggings(cursor);
+                break;
+            case 28:
+                armourStand.getEquipment().setBoots(cursor);
+                break;
+        }
     }
 
 }
