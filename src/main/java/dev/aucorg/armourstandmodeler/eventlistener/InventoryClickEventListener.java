@@ -19,6 +19,7 @@ public class InventoryClickEventListener implements Listener {
             return;
         }
 
+        // slot and rawslot are only equal if the click is in the gui inventory
         if (event.getSlot() != event.getRawSlot()) {
             return;
         }

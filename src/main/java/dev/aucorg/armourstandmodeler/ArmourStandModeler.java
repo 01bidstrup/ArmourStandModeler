@@ -11,6 +11,8 @@ public final class ArmourStandModeler extends JavaPlugin {
     public void onEnable() {
         PluginManager pluginManager = getServer().getPluginManager();
 
+
+        // debug
         pluginManager.registerEvents(new DebugInventoryClickListener(), this);
         this.getCommand("printinteractions").setExecutor(new DebugPrintInteractionListCommand());
 
@@ -20,8 +22,6 @@ public final class ArmourStandModeler extends JavaPlugin {
         pluginManager.registerEvents(new InventoryClickEventListener(), this);
         pluginManager.registerEvents(new InventoryDragEventListener(), this);
         pluginManager.registerEvents(new InventoryCloseEventListener(), this);
-
-
     }
 
     @Override

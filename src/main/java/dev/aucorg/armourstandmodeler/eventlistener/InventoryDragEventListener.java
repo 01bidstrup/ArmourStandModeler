@@ -20,10 +20,13 @@ public class InventoryDragEventListener implements Listener {
 
         if (ArmourStandInteractionMap.isPlayerInteracting(player)) {
             int inventorySize = event.getInventory().getSize();
+            // check if any of the dragged slots are in the gui inventory
             if (event.getRawSlots().stream().anyMatch(i -> i < inventorySize)) {
                 if (event.getRawSlots().size() > 1) {
                     event.setCancelled(true);
                 } else {
+                    // if the drag click only effected one slot it gets cancelled
+                    // only if the slot is not one of the unlocked slots in the gui
                     if (Arrays.stream(UNLOCKED_SLOTS).noneMatch(i -> event.getRawSlots().contains(i))) {
                         event.setCancelled(true);
                     }

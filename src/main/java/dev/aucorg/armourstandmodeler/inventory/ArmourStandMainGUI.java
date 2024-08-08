@@ -222,8 +222,4 @@ public class ArmourStandMainGUI {
 
         return guiButtons;
     }
-
-    private static Material materialAirIfNull(ItemStack item) {
-        return item == null ? Material.AIR : item.getType();
-    }
 }
