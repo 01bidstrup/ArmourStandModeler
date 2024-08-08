@@ -21,4 +21,8 @@ public class ArmourStandInteractionMap {
         ARMOUR_STAND_INTERACTION_MAP.remove(p);
     }
 
+    public static boolean isPlayerInteracting(Player p) {
+        return ARMOUR_STAND_INTERACTION_MAP.containsKey(p);
+    }
+
 }
