@@ -1,4 +1,4 @@
-package dev.aucorg.armourstandmodeler;
+package dev.aucorg.armourstandmodeler.debug;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

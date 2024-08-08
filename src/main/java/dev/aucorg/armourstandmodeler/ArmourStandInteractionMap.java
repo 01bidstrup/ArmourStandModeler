@@ -6,6 +6,9 @@ import org.bukkit.entity.Player;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 
+import java.util.Map;
+import java.util.Set;
+
 public class ArmourStandInteractionMap {
     private static final BiMap<Player, ArmorStand> ARMOUR_STAND_INTERACTION_MAP = HashBiMap.create();
 
@@ -23,6 +26,18 @@ public class ArmourStandInteractionMap {
 
     public static boolean isPlayerInteracting(Player p) {
         return ARMOUR_STAND_INTERACTION_MAP.containsKey(p);
+    }
+
+    public static Set<Player> getPlayers() {
+        return ARMOUR_STAND_INTERACTION_MAP.keySet();
+    }
+
+    public static Set<ArmorStand> getArmourStands() {
+        return ARMOUR_STAND_INTERACTION_MAP.values();
+    }
+
+    public static Set<Map.Entry<Player, ArmorStand>> getInteractionPairs() {
+        return ARMOUR_STAND_INTERACTION_MAP.entrySet();
     }
 
 }

@@ -2,3 +2,8 @@ name: ArmourStandModeler
 version: '${version}'
 main: dev.aucorg.armourstandmodeler.ArmourStandModeler
 api-version: '1.21'
+
+commands:
+  printinteractions:
+    description: Prints all Player <-> Armour Stand interaction pairs
+    usage: /<command>
