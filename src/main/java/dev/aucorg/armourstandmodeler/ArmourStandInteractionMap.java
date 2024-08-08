@@ -16,6 +16,10 @@ public class ArmourStandInteractionMap {
         return ARMOUR_STAND_INTERACTION_MAP.get(p);
     }
 
+    public static Player getPlayer(ArmorStand as) {
+        return ARMOUR_STAND_INTERACTION_MAP.inverse().get(as);
+    }
+
     public static void addInteraction(Player p, ArmorStand as) {
         ARMOUR_STAND_INTERACTION_MAP.put(p, as);
     }

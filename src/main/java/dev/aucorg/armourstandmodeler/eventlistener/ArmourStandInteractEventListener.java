@@ -4,6 +4,7 @@ import dev.aucorg.armourstandmodeler.ArmourStandInteractionMap;
 import dev.aucorg.armourstandmodeler.ArmourStandModeler;
 import dev.aucorg.armourstandmodeler.inventory.ArmourStandMainGUI;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Server;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Entity;
@@ -25,6 +26,12 @@ public class ArmourStandInteractEventListener implements Listener {
         ArmorStand armourStand = (ArmorStand) entity;
 
         event.setCancelled(true);
+
+        if (ArmourStandInteractionMap.getArmourStands().stream().anyMatch(as -> as.equals(armourStand))) {
+            player.sendMessage(ChatColor.RED + ArmourStandInteractionMap.getPlayer(armourStand).getDisplayName() + " is already interacting with that armour stand!");
+            return;
+        }
+
 
         ArmourStandInteractionMap.addInteraction(player, armourStand);
         player.openInventory(ArmourStandMainGUI.createGUI(player, armourStand));
