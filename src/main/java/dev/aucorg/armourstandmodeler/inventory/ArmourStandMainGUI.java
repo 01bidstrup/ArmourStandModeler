@@ -1,13 +1,210 @@
 package dev.aucorg.armourstandmodeler.inventory;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.EntityEquipment;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
+
+import java.util.Arrays;
 
 public class ArmourStandMainGUI {
     public static Inventory createGUI(Player p, ArmorStand as) {
-        return Bukkit.createInventory(p, 9 * 6, "Armour Stand");
+        String armourStandName = (as.getCustomName() == null) ? Integer.toString(as.getEntityId())  : as.getCustomName();
+
+        Inventory inventory = Bukkit.createInventory(p, 45, "Armour Stand: " + ChatColor.DARK_AQUA + armourStandName);
+        inventory.setContents(generateGUIButtons(as));
+
+        return inventory;
     }
 
+
+    private static ItemStack[] generateGUIButtons(ArmorStand as) {
+        ItemStack[] guiButtons = new ItemStack[45];
+        Arrays.fill(guiButtons, new GUIItemBuilder(Material.AIR).build());
+
+        EntityEquipment equipment = as.getEquipment();
+
+        // armour gui buttons
+        guiButtons[0] = new GUIItemBuilder(Material.GOLDEN_HELMET)
+                .withName(ChatColor.GOLD + "Armour Stand Helmet")
+                .addLore(ChatColor.GRAY + "Place item to the right to")
+                .addLore(ChatColor.GRAY + "to set armour stand head item")
+                .addLore(ChatColor.DARK_GRAY + "----->")
+                .hideAttributes()
+                .build();
+        guiButtons[9] = new GUIItemBuilder(Material.GOLDEN_CHESTPLATE)
+                .withName(ChatColor.GOLD + "Armour Stand Chestplate")
+                .addLore(ChatColor.GRAY + "Place item to the right to")
+                .addLore(ChatColor.GRAY + "to set armour stand chestplate item")
+                .addLore(ChatColor.DARK_GRAY + "----->")
+                .hideAttributes()
+                .build();
+        guiButtons[18] = new GUIItemBuilder(Material.GOLDEN_LEGGINGS)
+                .withName(ChatColor.GOLD + "Armour Stand Leggings")
+                .addLore(ChatColor.GRAY + "Place item to the right to")
+                .addLore(ChatColor.GRAY + "to set armour stand leggings item")
+                .addLore(ChatColor.DARK_GRAY + "----->")
+                .hideAttributes()
+                .build();
+        guiButtons[27] = new GUIItemBuilder(Material.GOLDEN_BOOTS)
+                .withName(ChatColor.GOLD + "Armour Stand Boots")
+                .addLore(ChatColor.GRAY + "Place item to the right to")
+                .addLore(ChatColor.GRAY + "to set armour stand boots item")
+                .addLore(ChatColor.DARK_GRAY + "----->")
+                .hideAttributes()
+                .build();
+
+        // held item gui buttons
+        guiButtons[36] = new GUIItemBuilder(Material.GOLDEN_SWORD)
+                .withName(ChatColor.GOLD + "Armour Stand Left Hand Item")
+                .addLore(ChatColor.GRAY + "Place item to the right to")
+                .addLore(ChatColor.GRAY + "to set armour stand left hand item")
+                .addLore(ChatColor.DARK_GRAY + "----->")
+                .hideAttributes()
+                .build();
+        guiButtons[38] = new GUIItemBuilder(Material.GOLDEN_SWORD)
+                .withName(ChatColor.GOLD + "Armour Stand Right Hand Item")
+                .addLore(ChatColor.GRAY + "Place item to the right to")
+                .addLore(ChatColor.GRAY + "to set armour stand right hand item")
+                .addLore(ChatColor.DARK_GRAY + "----->")
+                .hideAttributes()
+                .build();
+
+        // armour display
+        guiButtons[1] = equipment.getHelmet();
+        guiButtons[10] = equipment.getChestplate();
+        guiButtons[19] = equipment.getLeggings();
+        guiButtons[28] = equipment.getBoots();
+
+        // held item display
+        guiButtons[37] = equipment.getItemInOffHand();
+        guiButtons[39] = equipment.getItemInMainHand();
+
+        // name tag
+        guiButtons[40] = new GUIItemBuilder(Material.NAME_TAG)
+                .withName(ChatColor.GOLD + "Armour Stand Name")
+                .addLore(ChatColor.GRAY + "Click to change name of the armour stand")
+                .addLore(ChatColor.DARK_GRAY + "Current: " + ChatColor.RESET + (as.getCustomName() == null ? "unnamed" : as.getCustomName()))
+                .build();
+
+        // head rotation gui buttons
+        guiButtons[3] = new GUIItemBuilder(Material.LEATHER_HELMET)
+                .withName(ChatColor.GOLD + "Armour Stand Head X Rotation")
+                .addLore(ChatColor.GRAY + "Click to change head X rotation")
+                .addLore(ChatColor.DARK_GRAY + "Current: " + ChatColor.YELLOW + Double.toString(as.getHeadPose().getX()))
+                .hideAttributes()
+                .build();
+        guiButtons[4] = new GUIItemBuilder(Material.LEATHER_HELMET)
+                .withName(ChatColor.GOLD + "Armour Stand Head Y Rotation")
+                .addLore(ChatColor.GRAY + "Click to change head Y rotation")
+                .addLore(ChatColor.DARK_GRAY + "Current: " + ChatColor.YELLOW + Double.toString(as.getHeadPose().getY()))
+                .hideAttributes()
+                .build();
+        guiButtons[5] = new GUIItemBuilder(Material.LEATHER_HELMET)
+                .withName(ChatColor.GOLD + "Armour Stand Head Z Rotation")
+                .addLore(ChatColor.GRAY + "Click to change head Z rotation")
+                .addLore(ChatColor.DARK_GRAY + "Current: " + ChatColor.YELLOW + Double.toString(as.getHeadPose().getZ()))
+                .hideAttributes()
+                .build();
+
+        // body rotation gui buttons
+        guiButtons[6] = new GUIItemBuilder(Material.LEATHER_CHESTPLATE)
+                .withName(ChatColor.GOLD + "Armour Stand Body X Rotation")
+                .addLore(ChatColor.GRAY + "Click to change body X rotation")
+                .addLore(ChatColor.DARK_GRAY + "Current: " + ChatColor.YELLOW + Double.toString(as.getBodyPose().getX()))
+                .hideAttributes()
+                .build();
+        guiButtons[7] = new GUIItemBuilder(Material.LEATHER_CHESTPLATE)
+                .withName(ChatColor.GOLD + "Armour Stand Body Y Rotation")
+                .addLore(ChatColor.GRAY + "Click to change body Y rotation")
+                .addLore(ChatColor.DARK_GRAY + "Current: " + ChatColor.YELLOW + Double.toString(as.getBodyPose().getY()))
+                .hideAttributes()
+                .build();
+        guiButtons[8] = new GUIItemBuilder(Material.LEATHER_CHESTPLATE)
+                .withName(ChatColor.GOLD + "Armour Stand Body Z Rotation")
+                .addLore(ChatColor.GRAY + "Click to change body Z rotation")
+                .addLore(ChatColor.DARK_GRAY + "Current: " + ChatColor.YELLOW + Double.toString(as.getBodyPose().getZ()))
+                .hideAttributes()
+                .build();
+
+        // left arm rotation gui buttons
+        guiButtons[12] = new GUIItemBuilder(Material.STICK)
+                .withName(ChatColor.GOLD + "Armour Stand Left Arm X Rotation")
+                .addLore(ChatColor.GRAY + "Click to change left arm X rotation")
+                .addLore(ChatColor.DARK_GRAY + "Current: " + ChatColor.YELLOW + Double.toString(as.getLeftArmPose().getX()))
+                .build();
+        guiButtons[13] = new GUIItemBuilder(Material.STICK)
+                .withName(ChatColor.GOLD + "Armour Stand Left Arm Y Rotation")
+                .addLore(ChatColor.GRAY + "Click to change left arm Y rotation")
+                .addLore(ChatColor.DARK_GRAY + "Current: " + ChatColor.YELLOW + Double.toString(as.getLeftArmPose().getY()))
+                .build();
+        guiButtons[14] = new GUIItemBuilder(Material.STICK)
+                .withName(ChatColor.GOLD + "Armour Stand Left Arm Z Rotation")
+                .addLore(ChatColor.GRAY + "Click to change left arm Z rotation")
+                .addLore(ChatColor.DARK_GRAY + "Current: " + ChatColor.YELLOW + Double.toString(as.getLeftArmPose().getZ()))
+                .build();
+
+        // right arm rotation gui buttons
+        guiButtons[15] = new GUIItemBuilder(Material.STICK)
+                .withName(ChatColor.GOLD + "Armour Stand Right Arm X Rotation")
+                .addLore(ChatColor.GRAY + "Click to change right arm X rotation")
+                .addLore(ChatColor.DARK_GRAY + "Current: " + ChatColor.YELLOW + Double.toString(as.getRightArmPose().getX()))
+                .build();
+        guiButtons[16] = new GUIItemBuilder(Material.STICK)
+                .withName(ChatColor.GOLD + "Armour Stand Right Arm Y Rotation")
+                .addLore(ChatColor.GRAY + "Click to change right arm Y rotation")
+                .addLore(ChatColor.DARK_GRAY + "Current: " + ChatColor.YELLOW + Double.toString(as.getRightArmPose().getY()))
+                .build();
+        guiButtons[17] = new GUIItemBuilder(Material.STICK)
+                .withName(ChatColor.GOLD + "Armour Stand Right Arm Z Rotation")
+                .addLore(ChatColor.GRAY + "Click to change right arm Z rotation")
+                .addLore(ChatColor.DARK_GRAY + "Current: " + ChatColor.YELLOW + Double.toString(as.getRightArmPose().getZ()))
+                .build();
+
+        // left leg rotation gui buttons
+        guiButtons[21] = new GUIItemBuilder(Material.LEATHER_LEGGINGS)
+                .withName(ChatColor.GOLD + "Armour Stand Left Leg X Rotation")
+                .addLore(ChatColor.GRAY + "Click to change left leg X rotation")
+                .addLore(ChatColor.DARK_GRAY + "Current: " + ChatColor.YELLOW + Double.toString(as.getLeftLegPose().getX()))
+                .build();
+        guiButtons[22] = new GUIItemBuilder(Material.LEATHER_LEGGINGS)
+                .withName(ChatColor.GOLD + "Armour Stand Left Leg Y Rotation")
+                .addLore(ChatColor.GRAY + "Click to change left leg Y rotation")
+                .addLore(ChatColor.DARK_GRAY + "Current: " + ChatColor.YELLOW + Double.toString(as.getLeftLegPose().getY()))
+                .build();
+        guiButtons[23] = new GUIItemBuilder(Material.LEATHER_LEGGINGS)
+                .withName(ChatColor.GOLD + "Armour Stand Left Leg Z Rotation")
+                .addLore(ChatColor.GRAY + "Click to change left leg Z rotation")
+                .addLore(ChatColor.DARK_GRAY + "Current: " + ChatColor.YELLOW + Double.toString(as.getLeftLegPose().getZ()))
+                .build();
+
+        // right leg rotation gui buttons
+        guiButtons[24] = new GUIItemBuilder(Material.LEATHER_LEGGINGS)
+                .withName(ChatColor.GOLD + "Armour Stand Right Leg X Rotation")
+                .addLore(ChatColor.GRAY + "Click to change right leg X rotation")
+                .addLore(ChatColor.DARK_GRAY + "Current: " + ChatColor.YELLOW + Double.toString(as.getRightLegPose().getX()))
+                .build();
+        guiButtons[25] = new GUIItemBuilder(Material.LEATHER_LEGGINGS)
+                .withName(ChatColor.GOLD + "Armour Stand Right Leg Y Rotation")
+                .addLore(ChatColor.GRAY + "Click to change right leg Y rotation")
+                .addLore(ChatColor.DARK_GRAY + "Current: " + ChatColor.YELLOW + Double.toString(as.getRightLegPose().getY()))
+                .build();
+        guiButtons[26] = new GUIItemBuilder(Material.LEATHER_LEGGINGS)
+                .withName(ChatColor.GOLD + "Armour Stand Right Leg Z Rotation")
+                .addLore(ChatColor.GRAY + "Click to change right leg Z rotation")
+                .addLore(ChatColor.DARK_GRAY + "Current: " + ChatColor.YELLOW + Double.toString(as.getRightLegPose().getZ()))
+                .build();
+
+
+
+        return guiButtons;
+    }
+
+    private static Material materialAirIfNull(ItemStack item) {
+        return item == null ? Material.AIR : item.getType();
+    }
 }

@@ -24,14 +24,9 @@ public class ArmourStandInteractEventListener implements Listener {
         Player player = event.getPlayer();
         ArmorStand armourStand = (ArmorStand) entity;
 
+        event.setCancelled(true);
 
         ArmourStandInteractionMap.addInteraction(player, armourStand);
         player.openInventory(ArmourStandMainGUI.createGUI(player, armourStand));
-
-        event.setCancelled(true);
-
-
-
-        player.sendMessage("Clicked Armour Stand");
     }
 }
