@@ -27,5 +27,7 @@ public class InventoryClickEventListener implements Listener {
         if (Arrays.stream(UNLOCKED_SLOTS).noneMatch(i -> i == event.getRawSlot())) {
             event.setCancelled(true);
         }
+
+
     }
 }

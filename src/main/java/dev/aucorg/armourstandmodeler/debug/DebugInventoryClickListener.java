@@ -17,6 +17,7 @@ public class DebugInventoryClickListener implements Listener {
         player.sendMessage("Raw Slot: " + event.getRawSlot());
 
         player.sendMessage("Slot Type: " + event.getSlotType().name());
+        player.sendMessage("Action: " + event.getAction());
     }
 
     @EventHandler

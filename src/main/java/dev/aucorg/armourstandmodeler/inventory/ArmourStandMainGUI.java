@@ -21,7 +21,6 @@ public class ArmourStandMainGUI {
         return inventory;
     }
 
-
     private static ItemStack[] generateGUIButtons(ArmorStand as) {
         ItemStack[] guiButtons = new ItemStack[45];
         Arrays.fill(guiButtons, new GUIItemBuilder(Material.AIR).build());
@@ -222,4 +221,5 @@ public class ArmourStandMainGUI {
 
         return guiButtons;
     }
+
 }
