@@ -12,13 +12,13 @@ public class ArmourStandInteractEventListener implements Listener {
     public void onPlayerInteractArmourStand(PlayerInteractAtEntityEvent event) {
         Entity entity = event.getRightClicked();
 
-        Player p = event.getPlayer();
+        Player player = event.getPlayer();
 
         if (entity.getType() != EntityType.ARMOR_STAND) {
             return;
         }
 
         event.setCancelled(true);
-        p.sendMessage("Clicked Armour Stand");
+        player.sendMessage("Clicked Armour Stand");
     }
 }
