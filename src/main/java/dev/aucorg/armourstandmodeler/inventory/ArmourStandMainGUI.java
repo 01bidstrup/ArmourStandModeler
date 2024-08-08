@@ -201,6 +201,25 @@ public class ArmourStandMainGUI {
 
 
 
+        guiButtons[34] = new GUIItemBuilder(Material.COMPASS)
+                .withName(ChatColor.GOLD + "Armour Stand Facing Rotation")
+                .addLore(ChatColor.GRAY + "Click to change armour stand facing rotation")
+                .addLore(ChatColor.DARK_GRAY + "Current: " + ChatColor.YELLOW + Float.toString(as.getLocation().getYaw()))
+                .build();
+        guiButtons[35] = new GUIItemBuilder(Material.PISTON)
+                .withName(ChatColor.GOLD + "Move Armour Stand")
+                .addLore(ChatColor.GRAY + "Click to move the armour stand")
+                .build();
+
+        guiButtons[43] = new GUIItemBuilder(Material.SKELETON_SKULL)
+                .withName(ChatColor.GOLD + "Kill Armour Stand")
+                .addLore(ChatColor.GRAY + "Click to " + ChatColor.RED + "kill " + ChatColor.GRAY + "the armour stand")
+                .addLore(ChatColor.GRAY + "this can " + ChatColor.UNDERLINE + "NOT" + ChatColor.GRAY + " be undone!")
+                .build();
+        guiButtons[44] = new GUIItemBuilder(Material.BARRIER)
+                .withName(ChatColor.RED + "Close Menu")
+                .build();
+
         return guiButtons;
     }
 
