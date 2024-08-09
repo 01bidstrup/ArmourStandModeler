@@ -25,6 +25,7 @@ public class PlaceArmourStandEventListener implements Listener {
         armourStand.setRightArmPose(zeroAngle);
         armourStand.setLeftLegPose(zeroAngle);
         armourStand.setRightLegPose(zeroAngle);
+        armourStand.setGravity(false);
     }
 }
 
