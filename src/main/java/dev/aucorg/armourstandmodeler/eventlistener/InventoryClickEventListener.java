@@ -2,6 +2,7 @@ package dev.aucorg.armourstandmodeler.eventlistener;
 
 import dev.aucorg.armourstandmodeler.ArmourStandInteractionMap;
 import dev.aucorg.armourstandmodeler.inventory.ArmourStandMainGUI;
+import org.bukkit.conversations.ConversationFactory;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -14,6 +15,11 @@ import java.util.Arrays;
 
 public class InventoryClickEventListener implements Listener {
     private static final int[] UNLOCKED_SLOTS = new int[] {1, 10, 19, 28, 37, 39};
+
+    private final ConversationFactory conversationFactory;
+    public InventoryClickEventListener(ConversationFactory conversationFactory) {
+        this.conversationFactory = conversationFactory;
+    }
 
     @EventHandler
     public void onPlayerInventoryClick(InventoryClickEvent event) {
@@ -41,6 +47,6 @@ public class InventoryClickEventListener implements Listener {
             event.setCancelled(true);
         }
 
-        ArmourStandMainGUI.handleGUIClickEvent(event);
+        ArmourStandMainGUI.handleGUIClickEvent(event, conversationFactory);
     }
 }

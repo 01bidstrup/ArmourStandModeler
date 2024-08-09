@@ -1,19 +1,24 @@
 package dev.aucorg.armourstandmodeler.inventory;
 
 import dev.aucorg.armourstandmodeler.ArmourStandInteractionMap;
+import dev.aucorg.armourstandmodeler.chatinput.ArmourStandSetNamePrompt;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
+import org.bukkit.conversations.*;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.EntityEquipment;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
-import java.awt.*;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 public class ArmourStandMainGUI {
     public static Inventory createGUI(Player p, ArmorStand as) {
@@ -92,6 +97,7 @@ public class ArmourStandMainGUI {
                 .withName(ChatColor.GOLD + "Armour Stand Name")
                 .addLore(ChatColor.GRAY + "Click to change name of the armour stand")
                 .addLore(ChatColor.DARK_GRAY + "Current: " + ChatColor.RESET + (as.getCustomName() == null ? "unnamed" : as.getCustomName()))
+                .addLore(ChatColor.DARK_GRAY + "Shift + Right-Click to reset")
                 .build();
 
         // head rotation gui buttons
@@ -226,7 +232,7 @@ public class ArmourStandMainGUI {
         return guiButtons;
     }
 
-    public static void handleGUIClickEvent(InventoryClickEvent event) {
+    public static void handleGUIClickEvent(InventoryClickEvent event, ConversationFactory conversationFactory) {
         int slot = event.getRawSlot();
 
         Player player = (Player) event.getWhoClicked();
@@ -303,8 +309,23 @@ public class ArmourStandMainGUI {
 
 
 
-
-
+            case 40:
+                if (event.getClick().equals(ClickType.SHIFT_RIGHT)) {
+                    armourStand.setCustomName(null);
+                    armourStand.setCustomNameVisible(false);
+                    event.getInventory().setContents(generateGUIButtons(armourStand));
+                    break;
+                }
+                Map<Object, Object> initialSessionData = new HashMap<>();
+                initialSessionData.put("armourStand", armourStand);
+                Conversation c = conversationFactory
+                        .withFirstPrompt(new ArmourStandSetNamePrompt())
+                        .withInitialSessionData(initialSessionData)
+                        .withLocalEcho(false)
+                        .buildConversation(player);
+                player.closeInventory();
+                c.begin();
+                break;
             case 43:
                 armourStand.remove();
             case 44:
