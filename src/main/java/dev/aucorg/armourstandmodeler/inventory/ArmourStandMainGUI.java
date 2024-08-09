@@ -230,11 +230,12 @@ public class ArmourStandMainGUI {
         int slot = event.getRawSlot();
 
         Player player = (Player) event.getWhoClicked();
+        boolean isPlayerCreative = player.getGameMode().equals(GameMode.CREATIVE);
         ArmorStand armourStand = ArmourStandInteractionMap.getArmourStand(player);
 
         // the item on the cursor prior to the event going through
         ItemStack cursor = event.getCursor();
-        player.sendMessage(cursor.getType().name());
+        boolean isCursorAir = cursor.getType().equals(Material.AIR);
 
         // the item in the clicked slot prior to the event going through
         ItemStack clickedItem = event.getCurrentItem();
@@ -242,8 +243,8 @@ public class ArmourStandMainGUI {
         switch (slot) {
             // helmet
             case 0:
-                if (!player.getGameMode().equals(GameMode.CREATIVE)) break;
-                if (!cursor.getType().equals(Material.AIR)) {
+                if (!isPlayerCreative) break;
+                if (!isCursorAir) {
                     event.getInventory().setItem(1, cursor);
                 } else break;
             case 1:
@@ -252,8 +253,8 @@ public class ArmourStandMainGUI {
 
             // chestplate
             case 9:
-                if (!player.getGameMode().equals(GameMode.CREATIVE)) break;
-                if (!cursor.getType().equals(Material.AIR)) {
+                if (!isPlayerCreative) break;
+                if (!isCursorAir) {
                     event.getInventory().setItem(10, cursor);
                 } else break;
             case 10:
@@ -262,8 +263,8 @@ public class ArmourStandMainGUI {
 
             // leggings
             case 18:
-                if (!player.getGameMode().equals(GameMode.CREATIVE)) break;
-                if (!cursor.getType().equals(Material.AIR)) {
+                if (!isPlayerCreative) break;
+                if (!isCursorAir) {
                     event.getInventory().setItem(19, cursor);
                 } else break;
             case 19:
@@ -272,8 +273,8 @@ public class ArmourStandMainGUI {
 
             // boots
             case 27:
-                if (!player.getGameMode().equals(GameMode.CREATIVE)) break;
-                if (!cursor.getType().equals(Material.AIR)) {
+                if (!isPlayerCreative) break;
+                if (!isCursorAir) {
                     event.getInventory().setItem(28, cursor);
                 } else break;
             case 28:
@@ -282,8 +283,8 @@ public class ArmourStandMainGUI {
 
             // left hand
             case 36:
-                if (!player.getGameMode().equals(GameMode.CREATIVE)) break;
-                if (!cursor.getType().equals(Material.AIR)) {
+                if (!isPlayerCreative) break;
+                if (!isCursorAir) {
                     event.getInventory().setItem(37, cursor);
                 } else break;
             case 37:
@@ -292,8 +293,8 @@ public class ArmourStandMainGUI {
 
             // right hand
             case 38:
-                if (!player.getGameMode().equals(GameMode.CREATIVE)) break;
-                if (!cursor.getType().equals(Material.AIR)) {
+                if (!isPlayerCreative) break;
+                if (!isCursorAir) {
                     event.getInventory().setItem(39, cursor);
                 } else break;
             case 39:
