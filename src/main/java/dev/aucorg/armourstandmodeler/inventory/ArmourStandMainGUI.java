@@ -3,6 +3,7 @@ package dev.aucorg.armourstandmodeler.inventory;
 import dev.aucorg.armourstandmodeler.ArmourStandInteractionMap;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Player;
@@ -11,6 +12,7 @@ import org.bukkit.inventory.EntityEquipment;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
+import java.awt.*;
 import java.util.Arrays;
 
 public class ArmourStandMainGUI {
@@ -232,24 +234,83 @@ public class ArmourStandMainGUI {
 
         // the item on the cursor prior to the event going through
         ItemStack cursor = event.getCursor();
+        player.sendMessage(cursor.getType().name());
 
         // the item in the clicked slot prior to the event going through
         ItemStack clickedItem = event.getCurrentItem();
 
         switch (slot) {
+            // helmet
+            case 0:
+                if (!player.getGameMode().equals(GameMode.CREATIVE)) break;
+                if (!cursor.getType().equals(Material.AIR)) {
+                    event.getInventory().setItem(1, cursor);
+                } else break;
             case 1:
                 armourStand.getEquipment().setHelmet(cursor);
                 break;
+
+            // chestplate
+            case 9:
+                if (!player.getGameMode().equals(GameMode.CREATIVE)) break;
+                if (!cursor.getType().equals(Material.AIR)) {
+                    event.getInventory().setItem(10, cursor);
+                } else break;
             case 10:
                 armourStand.getEquipment().setChestplate(cursor);
                 break;
+
+            // leggings
+            case 18:
+                if (!player.getGameMode().equals(GameMode.CREATIVE)) break;
+                if (!cursor.getType().equals(Material.AIR)) {
+                    event.getInventory().setItem(19, cursor);
+                } else break;
             case 19:
                 armourStand.getEquipment().setLeggings(cursor);
                 break;
+
+            // boots
+            case 27:
+                if (!player.getGameMode().equals(GameMode.CREATIVE)) break;
+                if (!cursor.getType().equals(Material.AIR)) {
+                    event.getInventory().setItem(28, cursor);
+                } else break;
             case 28:
                 armourStand.getEquipment().setBoots(cursor);
                 break;
+
+            // left hand
+            case 36:
+                if (!player.getGameMode().equals(GameMode.CREATIVE)) break;
+                if (!cursor.getType().equals(Material.AIR)) {
+                    event.getInventory().setItem(37, cursor);
+                } else break;
+            case 37:
+                armourStand.getEquipment().setItemInOffHand(cursor);
+                break;
+
+            // right hand
+            case 38:
+                if (!player.getGameMode().equals(GameMode.CREATIVE)) break;
+                if (!cursor.getType().equals(Material.AIR)) {
+                    event.getInventory().setItem(39, cursor);
+                } else break;
+            case 39:
+                armourStand.getEquipment().setItemInMainHand(cursor);
+                break;
+
+
+
+
+
+            case 43:
+                armourStand.remove();
+            case 44:
+                player.closeInventory();
+                break;
         }
     }
-
 }
+
+
