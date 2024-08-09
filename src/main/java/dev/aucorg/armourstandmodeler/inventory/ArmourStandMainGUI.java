@@ -318,6 +318,7 @@ public class ArmourStandMainGUI {
                         .withFirstPrompt(new ArmourStandSetFacingRotationPrompt())
                         .withInitialSessionData(initialSessionData)
                         .withLocalEcho(false)
+                        .withEscapeSequence("cancel")
                         .buildConversation(player);
                 player.closeInventory();
                 facingConversation.begin();
@@ -336,6 +337,7 @@ public class ArmourStandMainGUI {
                         .withFirstPrompt(new ArmourStandSetNamePrompt())
                         .withInitialSessionData(initialSessionData)
                         .withLocalEcho(false)
+                        .withEscapeSequence("cancel")
                         .buildConversation(player);
                 player.closeInventory();
                 nameConversation.begin();

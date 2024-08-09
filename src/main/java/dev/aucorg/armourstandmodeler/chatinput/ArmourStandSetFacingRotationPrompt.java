@@ -11,12 +11,12 @@ public class ArmourStandSetFacingRotationPrompt extends NumericPrompt {
     @Override
     public String getPromptText(ConversationContext conversationContext) {
         return ChatColor.YELLOW +  "Write rotation in chat in degrees\n"
-                + ChatColor.GRAY + ChatColor.ITALIC + "Example: " + ChatColor.WHITE+ "180";
+                + ChatColor.GRAY + ChatColor.ITALIC + "Example: " + ChatColor.WHITE+ "180\n"
+                + ChatColor.DARK_GRAY + "Write 'cancel' to cancel";
     }
 
     @Override
     protected String getFailedValidationText(ConversationContext context, String invalidInput) {
-
         return ChatColor.RED + "[error] " + ChatColor.WHITE + String.format("Failed to parse '%s' as a number", invalidInput);
     }
 

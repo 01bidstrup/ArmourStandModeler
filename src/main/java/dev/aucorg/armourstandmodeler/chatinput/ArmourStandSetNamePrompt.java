@@ -10,7 +10,8 @@ public class ArmourStandSetNamePrompt extends StringPrompt {
     @Override
     public String getPromptText(ConversationContext conversationContext) {
         return ChatColor.YELLOW +  "Write name in chat. Use '&' to indicate colour codes\n"
-                + ChatColor.GRAY + ChatColor.ITALIC + "Example: " + ChatColor.WHITE+ "&6Steve";
+                + ChatColor.GRAY + ChatColor.ITALIC + "Example: " + ChatColor.WHITE+ "&6Steve\n"
+                + ChatColor.DARK_GRAY + "Write 'cancel' to cancel";
     }
 
     @Override
