@@ -4,10 +4,7 @@ import dev.aucorg.armourstandmodeler.ArmourStandInteractionMap;
 import dev.aucorg.armourstandmodeler.chatinput.ArmourStandMovePrompt;
 import dev.aucorg.armourstandmodeler.chatinput.ArmourStandSetFacingRotationPrompt;
 import dev.aucorg.armourstandmodeler.chatinput.ArmourStandSetNamePrompt;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.GameMode;
-import org.bukkit.Material;
+import org.bukkit.*;
 import org.bukkit.conversations.*;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Player;
@@ -216,6 +213,7 @@ public class ArmourStandMainGUI {
                 .withName(ChatColor.GOLD + "Armour Stand Facing Rotation")
                 .addLore(ChatColor.GRAY + "Click to change armour stand facing rotation")
                 .addLore(ChatColor.DARK_GRAY + "Current: " + ChatColor.YELLOW + Float.toString(as.getLocation().getYaw()))
+                .addLore(ChatColor.DARK_GRAY + "Shift + Right-Click to set facing player")
                 .build();
         guiButtons[35] = new GUIItemBuilder(Material.PISTON)
                 .withName(ChatColor.GOLD + "Move Armour Stand")
@@ -330,6 +328,14 @@ public class ArmourStandMainGUI {
 
 
             case 34:
+                if (event.getClick().equals(ClickType.SHIFT_RIGHT)) {
+                    Location newLocation = armourStand.getLocation();
+                    newLocation.setYaw(player.getLocation().getYaw() - 180f);
+                    armourStand.teleport(newLocation);
+                    player.closeInventory();
+                    break;
+                }
+
                 Conversation facingConversation = conversationFactory
                         .withFirstPrompt(new ArmourStandSetFacingRotationPrompt(armourStand))
                         .withLocalEcho(false)
