@@ -2,6 +2,7 @@ package dev.aucorg.armourstandmodeler.eventlistener;
 
 import dev.aucorg.armourstandmodeler.ArmourStandInteractionMap;
 import dev.aucorg.armourstandmodeler.inventory.ArmourStandMainGUI;
+import org.bukkit.Sound;
 import org.bukkit.conversations.ConversationFactory;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -47,6 +48,9 @@ public class InventoryClickEventListener implements Listener {
             event.setCancelled(true);
         }
 
+        if (event.isCancelled()) {
+            player.playSound(player.getEyeLocation(), Sound.UI_BUTTON_CLICK, 0.3f, 1f);
+        }
         ArmourStandMainGUI.handleGUIClickEvent(event, conversationFactory);
     }
 }

@@ -237,6 +237,8 @@ public class ArmourStandMainGUI {
     public static void handleGUIClickEvent(InventoryClickEvent event, ConversationFactory conversationFactory) {
         int slot = event.getRawSlot();
 
+
+
         Player player = (Player) event.getWhoClicked();
         boolean isPlayerCreative = player.getGameMode().equals(GameMode.CREATIVE);
         ArmorStand armourStand = ArmourStandInteractionMap.getArmourStand(player);
@@ -362,6 +364,10 @@ public class ArmourStandMainGUI {
                     Location dropLocation = armourStand.getLocation();
                     armourStand.getLocation().getWorld().dropItemNaturally(dropLocation, dropItem);
                 }
+                armourStand.getLocation().getWorld().playSound(armourStand.getLocation(), Sound.ENTITY_ARMOR_STAND_HIT, 1, 1);
+                armourStand.getLocation().getWorld().playSound(armourStand.getLocation(), Sound.ENTITY_ARMOR_STAND_BREAK, 1, 1);
+
+
                 armourStand.remove();
             case 44:
                 player.closeInventory();
