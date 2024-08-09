@@ -14,7 +14,6 @@ public class ArmourStandSetFacingRotationPrompt extends NumericPrompt {
         this.armourStand = armourStand;
     }
 
-
     @Override
     public String getPromptText(ConversationContext conversationContext) {
         return ChatColor.YELLOW +  "Write rotation in chat in degrees\n"
