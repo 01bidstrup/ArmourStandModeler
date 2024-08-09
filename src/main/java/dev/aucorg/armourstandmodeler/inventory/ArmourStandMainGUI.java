@@ -247,9 +247,6 @@ public class ArmourStandMainGUI {
         // the item in the clicked slot prior to the event going through
         ItemStack clickedItem = event.getCurrentItem();
 
-        Map<Object, Object> initialSessionData = new HashMap<>();
-        initialSessionData.put("armourStand", armourStand);
-
         switch (slot) {
             // helmet
             case 0:
@@ -315,8 +312,7 @@ public class ArmourStandMainGUI {
             case 34:
 
                 Conversation facingConversation = conversationFactory
-                        .withFirstPrompt(new ArmourStandSetFacingRotationPrompt())
-                        .withInitialSessionData(initialSessionData)
+                        .withFirstPrompt(new ArmourStandSetFacingRotationPrompt(armourStand))
                         .withLocalEcho(false)
                         .withEscapeSequence("cancel")
                         .buildConversation(player);
@@ -334,8 +330,7 @@ public class ArmourStandMainGUI {
                 }
 
                 Conversation nameConversation = conversationFactory
-                        .withFirstPrompt(new ArmourStandSetNamePrompt())
-                        .withInitialSessionData(initialSessionData)
+                        .withFirstPrompt(new ArmourStandSetNamePrompt(armourStand))
                         .withLocalEcho(false)
                         .withEscapeSequence("cancel")
                         .buildConversation(player);

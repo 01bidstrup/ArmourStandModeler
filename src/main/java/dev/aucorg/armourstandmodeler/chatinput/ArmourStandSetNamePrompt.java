@@ -7,6 +7,12 @@ import org.bukkit.conversations.StringPrompt;
 import org.bukkit.entity.ArmorStand;
 
 public class ArmourStandSetNamePrompt extends StringPrompt {
+    private final ArmorStand armourStand;
+
+    public ArmourStandSetNamePrompt(ArmorStand armourStand) {
+        this.armourStand = armourStand;
+    }
+
     @Override
     public String getPromptText(ConversationContext conversationContext) {
         return ChatColor.YELLOW +  "Write name in chat. Use '&' to indicate colour codes\n"
@@ -17,8 +23,6 @@ public class ArmourStandSetNamePrompt extends StringPrompt {
     @Override
     public Prompt acceptInput(ConversationContext conversationContext, String s) {
         String colourCodedString = ChatColor.WHITE + ChatColor.translateAlternateColorCodes('&', s);
-
-        ArmorStand armourStand = (ArmorStand) conversationContext.getSessionData("armourStand");
 
         armourStand.setCustomName(colourCodedString);
         armourStand.setCustomNameVisible(true);

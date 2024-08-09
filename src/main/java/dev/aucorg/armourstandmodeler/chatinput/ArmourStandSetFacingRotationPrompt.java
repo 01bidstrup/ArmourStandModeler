@@ -8,6 +8,13 @@ import org.bukkit.conversations.Prompt;
 import org.bukkit.entity.ArmorStand;
 
 public class ArmourStandSetFacingRotationPrompt extends NumericPrompt {
+    private final ArmorStand armourStand;
+
+    public ArmourStandSetFacingRotationPrompt(ArmorStand armourStand) {
+        this.armourStand = armourStand;
+    }
+
+
     @Override
     public String getPromptText(ConversationContext conversationContext) {
         return ChatColor.YELLOW +  "Write rotation in chat in degrees\n"
@@ -22,8 +29,6 @@ public class ArmourStandSetFacingRotationPrompt extends NumericPrompt {
 
     @Override
     protected Prompt acceptValidatedInput(ConversationContext conversationContext, Number number) {
-        ArmorStand armourStand = (ArmorStand) conversationContext.getSessionData("armourStand");
-
         Location newLocation =    armourStand.getLocation();
         newLocation.setYaw(number.floatValue());
         armourStand.teleport(newLocation);
