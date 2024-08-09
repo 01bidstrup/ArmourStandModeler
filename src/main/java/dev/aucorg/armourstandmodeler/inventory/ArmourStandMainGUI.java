@@ -6,6 +6,8 @@ import dev.aucorg.armourstandmodeler.chatinput.ArmourStandSetFacingRotationPromp
 import dev.aucorg.armourstandmodeler.chatinput.ArmourStandSetNamePrompt;
 import org.bukkit.*;
 import org.bukkit.conversations.*;
+import org.bukkit.damage.DamageSource;
+import org.bukkit.damage.DamageType;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
@@ -355,6 +357,11 @@ public class ArmourStandMainGUI {
                 break;
 
             case 43:
+                if (!isPlayerCreative) {
+                    ItemStack dropItem = new ItemStack(Material.ARMOR_STAND, 1);
+                    Location dropLocation = armourStand.getLocation();
+                    armourStand.getLocation().getWorld().dropItemNaturally(dropLocation, dropItem);
+                }
                 armourStand.remove();
             case 44:
                 player.closeInventory();

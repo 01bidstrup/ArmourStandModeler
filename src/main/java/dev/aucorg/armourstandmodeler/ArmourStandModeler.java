@@ -24,6 +24,7 @@ public final class ArmourStandModeler extends JavaPlugin {
         pluginManager.registerEvents(new InventoryClickEventListener(conversationFactory), this);
         pluginManager.registerEvents(new InventoryDragEventListener(), this);
         pluginManager.registerEvents(new InventoryCloseEventListener(), this);
+        pluginManager.registerEvents(new ArmourStandDamageEventListener(), this);
 
 
     }
