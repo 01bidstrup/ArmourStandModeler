@@ -48,7 +48,7 @@ public class InventoryClickEventListener implements Listener {
             event.setCancelled(true);
         }
 
-        if (event.isCancelled()) {
+        if (event.isCancelled() && !event.getAction().equals(InventoryAction.NOTHING)) {
             player.playSound(player.getEyeLocation(), Sound.UI_BUTTON_CLICK, 0.3f, 1f);
         }
         ArmourStandMainGUI.handleGUIClickEvent(event, conversationFactory);
