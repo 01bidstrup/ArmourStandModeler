@@ -43,7 +43,7 @@ public class InventoryDragEventListener implements Listener {
                                     InventoryType.SlotType.CONTAINER,
                                     slot.get(),
                                     ClickType.LEFT,
-                                    (event.getType() == DragType.EVEN) ? InventoryAction.PLACE_ALL
+                                    (event.getType().equals(DragType.EVEN)) ? InventoryAction.PLACE_ALL
                                             : InventoryAction.PLACE_ONE));
                         }
                     }

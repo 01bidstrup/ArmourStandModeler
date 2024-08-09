@@ -26,7 +26,7 @@ public class InventoryClickEventListener implements Listener {
         // slot and rawslot are only equal if the click is in the gui inventory
         if (event.getSlot() != event.getRawSlot()) {
             // shift clicking items into the gui is annoying to implement so it is not allowed for now
-            if (event.getClick() == ClickType.SHIFT_LEFT || event.getClick() == ClickType.SHIFT_RIGHT) {
+            if (event.getClick().equals(ClickType.SHIFT_LEFT)  || event.getClick().equals(ClickType.SHIFT_RIGHT)) {
                 event.setCancelled(true);
             }
             return;
