@@ -1,6 +1,7 @@
 package dev.aucorg.armourstandmodeler.inventory;
 
 import dev.aucorg.armourstandmodeler.ArmourStandInteractionMap;
+import dev.aucorg.armourstandmodeler.chatinput.ArmourStandSetFacingRotationPrompt;
 import dev.aucorg.armourstandmodeler.chatinput.ArmourStandSetNamePrompt;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -246,6 +247,9 @@ public class ArmourStandMainGUI {
         // the item in the clicked slot prior to the event going through
         ItemStack clickedItem = event.getCurrentItem();
 
+        Map<Object, Object> initialSessionData = new HashMap<>();
+        initialSessionData.put("armourStand", armourStand);
+
         switch (slot) {
             // helmet
             case 0:
@@ -308,7 +312,18 @@ public class ArmourStandMainGUI {
                 break;
 
 
+            case 34:
 
+                Conversation facingConversation = conversationFactory
+                        .withFirstPrompt(new ArmourStandSetFacingRotationPrompt())
+                        .withInitialSessionData(initialSessionData)
+                        .withLocalEcho(false)
+                        .buildConversation(player);
+                player.closeInventory();
+                facingConversation.begin();
+                break;
+
+            // set armour stand name
             case 40:
                 if (event.getClick().equals(ClickType.SHIFT_RIGHT)) {
                     armourStand.setCustomName(null);
@@ -316,15 +331,14 @@ public class ArmourStandMainGUI {
                     event.getInventory().setContents(generateGUIButtons(armourStand));
                     break;
                 }
-                Map<Object, Object> initialSessionData = new HashMap<>();
-                initialSessionData.put("armourStand", armourStand);
-                Conversation c = conversationFactory
+
+                Conversation nameConversation = conversationFactory
                         .withFirstPrompt(new ArmourStandSetNamePrompt())
                         .withInitialSessionData(initialSessionData)
                         .withLocalEcho(false)
                         .buildConversation(player);
                 player.closeInventory();
-                c.begin();
+                nameConversation.begin();
                 break;
             case 43:
                 armourStand.remove();
