@@ -1,6 +1,7 @@
 package dev.aucorg.armourstandmodeler.eventlistener;
 
 
+import org.bukkit.GameMode;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.EntityType;
 import org.bukkit.event.EventHandler;
@@ -26,6 +27,11 @@ public class PlaceArmourStandEventListener implements Listener {
         armourStand.setLeftLegPose(zeroAngle);
         armourStand.setRightLegPose(zeroAngle);
         armourStand.setGravity(false);
+
+        if (event.getPlayer().getGameMode().equals(GameMode.CREATIVE)) {
+            armourStand.setInvulnerable(true);
+        }
+
     }
 }
 
