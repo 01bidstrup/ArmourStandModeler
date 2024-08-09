@@ -236,11 +236,6 @@ public class ArmourStandMainGUI {
         // the item in the clicked slot prior to the event going through
         ItemStack clickedItem = event.getCurrentItem();
 
-
-        // TODO: Using curser to get the item placed does not work with hand swaps
-        // figure something else out for checking what item was placed
-        // maybe just read out of inventory ?
-
         switch (slot) {
             case 1:
                 armourStand.getEquipment().setHelmet(cursor);

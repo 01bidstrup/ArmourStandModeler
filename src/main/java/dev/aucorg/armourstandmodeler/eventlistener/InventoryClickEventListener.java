@@ -6,6 +6,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.ClickType;
+import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 
@@ -28,6 +29,11 @@ public class InventoryClickEventListener implements Listener {
             if (event.getClick() == ClickType.SHIFT_LEFT || event.getClick() == ClickType.SHIFT_RIGHT) {
                 event.setCancelled(true);
             }
+            return;
+        }
+
+        if (event.getAction().equals(InventoryAction.HOTBAR_SWAP)) {
+            event.setCancelled(true);
             return;
         }
 
