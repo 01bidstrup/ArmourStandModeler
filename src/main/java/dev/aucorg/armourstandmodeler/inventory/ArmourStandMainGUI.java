@@ -1,6 +1,7 @@
 package dev.aucorg.armourstandmodeler.inventory;
 
 import dev.aucorg.armourstandmodeler.ArmourStandInteractionMap;
+import dev.aucorg.armourstandmodeler.chatinput.ArmourStandMovePrompt;
 import dev.aucorg.armourstandmodeler.chatinput.ArmourStandSetFacingRotationPrompt;
 import dev.aucorg.armourstandmodeler.chatinput.ArmourStandSetNamePrompt;
 import org.bukkit.Bukkit;
@@ -309,17 +310,6 @@ public class ArmourStandMainGUI {
                 break;
 
 
-            case 34:
-
-                Conversation facingConversation = conversationFactory
-                        .withFirstPrompt(new ArmourStandSetFacingRotationPrompt(armourStand))
-                        .withLocalEcho(false)
-                        .withEscapeSequence("cancel")
-                        .buildConversation(player);
-                player.closeInventory();
-                facingConversation.begin();
-                break;
-
             // set armour stand name
             case 40:
                 if (event.getClick().equals(ClickType.SHIFT_RIGHT)) {
@@ -337,6 +327,27 @@ public class ArmourStandMainGUI {
                 player.closeInventory();
                 nameConversation.begin();
                 break;
+
+
+            case 34:
+                Conversation facingConversation = conversationFactory
+                        .withFirstPrompt(new ArmourStandSetFacingRotationPrompt(armourStand))
+                        .withLocalEcho(false)
+                        .withEscapeSequence("cancel")
+                        .buildConversation(player);
+                player.closeInventory();
+                facingConversation.begin();
+                break;
+            case 35:
+                Conversation moveConversation = conversationFactory
+                        .withFirstPrompt(new ArmourStandMovePrompt(armourStand))
+                        .withLocalEcho(false)
+                        .withEscapeSequence("cancel")
+                        .buildConversation(player);
+                player.closeInventory();
+                moveConversation.begin();
+                break;
+
             case 43:
                 armourStand.remove();
             case 44:
