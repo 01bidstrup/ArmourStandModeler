@@ -5,7 +5,6 @@ import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.conversations.ConversationFactory;
 import org.bukkit.entity.ArmorStand;
-import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
@@ -117,8 +116,7 @@ public class ArmourStandAdvancedOptionsGUI implements InventoryGUI {
 
     @Override
     public void handleGUIClickEvent(InventoryClickEvent event, ConversationFactory conversationFactory) {
-
-
+        event.setCancelled(true);
 
     }
 }

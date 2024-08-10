@@ -260,6 +260,7 @@ public final class ArmourStandMainGUI implements InventoryGUI {
     @Override
     public void handleGUIClickEvent(InventoryClickEvent event, ConversationFactory conversationFactory) {
         int slot = event.getRawSlot();
+
         if (Arrays.stream(UNLOCKED_SLOTS).noneMatch(i -> i == slot)) {
             event.setCancelled(true);
         }
@@ -504,6 +505,7 @@ public final class ArmourStandMainGUI implements InventoryGUI {
                 .withLocalEcho(false)
                 .withEscapeSequence("cancel")
                 .buildConversation(player);
+
         player.closeInventory();
         limbConversation.begin();
     }
