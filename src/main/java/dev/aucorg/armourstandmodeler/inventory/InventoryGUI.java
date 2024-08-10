@@ -7,5 +7,5 @@ import org.bukkit.inventory.Inventory;
 public interface InventoryGUI {
     public Inventory getInventory();
     public GUIType getGUIType();
-    public void handleGUIClickEvent(InventoryClickEvent event, ConversationFactory conversationFactory);
+    public void handleGUIClickEvent(InventoryClickEvent event);
 }

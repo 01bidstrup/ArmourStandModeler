@@ -8,6 +8,8 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class ArmourStandModeler extends JavaPlugin {
+    private ConversationFactory conversationFactory;
+
     @Override
     public void onEnable() {
         PluginManager pluginManager = getServer().getPluginManager();
@@ -17,11 +19,11 @@ public final class ArmourStandModeler extends JavaPlugin {
         this.getCommand("printinteractions").setExecutor(new DebugPrintInteractionListCommand());
         // debug
 
-        ConversationFactory conversationFactory = new ConversationFactory(this);
+        conversationFactory = new ConversationFactory(this);
 
         pluginManager.registerEvents(new ArmourStandInteractEventListener(), this);
         pluginManager.registerEvents(new PlaceArmourStandEventListener(), this);
-        pluginManager.registerEvents(new InventoryClickEventListener(conversationFactory), this);
+        pluginManager.registerEvents(new InventoryClickEventListener(), this);
         pluginManager.registerEvents(new InventoryDragEventListener(), this);
         pluginManager.registerEvents(new InventoryCloseEventListener(), this);
         pluginManager.registerEvents(new ArmourStandDamageEventListener(), this);
@@ -29,5 +31,9 @@ public final class ArmourStandModeler extends JavaPlugin {
 
     @Override
     public void onDisable() {
+    }
+
+    public ConversationFactory getConversationFactory() {
+        return conversationFactory;
     }
 }

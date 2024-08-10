@@ -9,15 +9,10 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 
 public class InventoryClickEventListener implements Listener {
-    private final ConversationFactory conversationFactory;
-    public InventoryClickEventListener(ConversationFactory conversationFactory) {
-        this.conversationFactory = conversationFactory;
-    }
-
     @EventHandler
     public void onPlayerInventoryClick(InventoryClickEvent event) {
         Player player = (Player) event.getWhoClicked();
 
-        InventoryGUIController.getInstance().handleInventoryClickEvent(event, conversationFactory);
+        InventoryGUIController.getInstance().handleInventoryClickEvent(event);
     }
 }

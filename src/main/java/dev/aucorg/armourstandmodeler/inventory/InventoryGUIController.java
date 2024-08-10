@@ -58,7 +58,7 @@ public enum InventoryGUIController {
         PLAYER_GUI_STATE_MAP.remove(player);
     }
 
-    public void handleInventoryClickEvent(InventoryClickEvent event, ConversationFactory conversationFactory) {
+    public void handleInventoryClickEvent(InventoryClickEvent event) {
         if (event.getWhoClicked() instanceof Player player) {
             if (!PLAYER_GUI_STATE_MAP.containsKey(player)) {
                 return;
@@ -79,7 +79,7 @@ public enum InventoryGUIController {
             }
 
             if (PLAYER_GUI_STATE_MAP.containsKey(player)) {
-                PLAYER_GUI_STATE_MAP.get(player).handleGUIClickEvent(event, conversationFactory);
+                PLAYER_GUI_STATE_MAP.get(player).handleGUIClickEvent(event);
             }
 
             if (event.isCancelled() && !event.getAction().equals(InventoryAction.NOTHING)) {

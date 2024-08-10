@@ -1,6 +1,7 @@
 package dev.aucorg.armourstandmodeler.inventory;
 
 import dev.aucorg.armourstandmodeler.ArmourStandInteractionMap;
+import dev.aucorg.armourstandmodeler.ArmourStandModeler;
 import dev.aucorg.armourstandmodeler.chatinput.ArmourStandMovePrompt;
 import dev.aucorg.armourstandmodeler.chatinput.ArmourStandSetFacingRotationPrompt;
 import dev.aucorg.armourstandmodeler.chatinput.ArmourStandSetLimbRotationPrompt;
@@ -14,8 +15,10 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.EntityEquipment;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.Arrays;
+import java.util.Objects;
 import java.util.function.Function;
 
 public final class ArmourStandMainGUI implements InventoryGUI {
@@ -258,7 +261,7 @@ public final class ArmourStandMainGUI implements InventoryGUI {
     }
 
     @Override
-    public void handleGUIClickEvent(InventoryClickEvent event, ConversationFactory conversationFactory) {
+    public void handleGUIClickEvent(InventoryClickEvent event) {
         int slot = event.getRawSlot();
 
         if (Arrays.stream(UNLOCKED_SLOTS).noneMatch(i -> i == slot)) {
@@ -346,85 +349,85 @@ public final class ArmourStandMainGUI implements InventoryGUI {
             // head rotation
             case 3:
                 limbRotationApplicationFunction = angle -> { armourStand.setHeadPose(armourStand.getHeadPose().setX(angle)); return "Head X"; };
-                startConversation(player, conversationFactory, limbRotationApplicationFunction);
+                startConversation(player, new ArmourStandSetLimbRotationPrompt(limbRotationApplicationFunction));
                 break;
             case 4:
                 limbRotationApplicationFunction = angle -> { armourStand.setHeadPose(armourStand.getHeadPose().setY(angle)); return "Head Y"; };
-                startConversation(player, conversationFactory, limbRotationApplicationFunction);
+                startConversation(player, new ArmourStandSetLimbRotationPrompt(limbRotationApplicationFunction));
                 break;
             case 5:
                 limbRotationApplicationFunction = angle -> { armourStand.setHeadPose(armourStand.getHeadPose().setZ(angle)); return "Head Z"; };
-                startConversation(player, conversationFactory, limbRotationApplicationFunction);
+                startConversation(player, new ArmourStandSetLimbRotationPrompt(limbRotationApplicationFunction));
                 break;
 
             // body rotation
             case 6:
                 limbRotationApplicationFunction = angle -> { armourStand.setBodyPose(armourStand.getBodyPose().setX(angle)); return "Body X"; };
-                startConversation(player, conversationFactory, limbRotationApplicationFunction);
+                startConversation(player, new ArmourStandSetLimbRotationPrompt(limbRotationApplicationFunction));
                 break;
             case 7:
                 limbRotationApplicationFunction = angle -> { armourStand.setBodyPose(armourStand.getBodyPose().setY(angle)); return "Body Y"; };
-                startConversation(player, conversationFactory, limbRotationApplicationFunction);
+                startConversation(player, new ArmourStandSetLimbRotationPrompt(limbRotationApplicationFunction));
                 break;
             case 8:
                 limbRotationApplicationFunction = angle -> { armourStand.setBodyPose(armourStand.getBodyPose().setZ(angle)); return "Body Z"; };
-                startConversation(player, conversationFactory, limbRotationApplicationFunction);
+                startConversation(player, new ArmourStandSetLimbRotationPrompt(limbRotationApplicationFunction));
                 break;
 
             // left arm rotation
             case 12:
                 limbRotationApplicationFunction = angle -> { armourStand.setLeftArmPose(armourStand.getLeftArmPose().setX(angle)); return "Left Arm X"; };
-                startConversation(player, conversationFactory, limbRotationApplicationFunction);
+                startConversation(player, new ArmourStandSetLimbRotationPrompt(limbRotationApplicationFunction));
                 break;
             case 13:
                 limbRotationApplicationFunction = angle -> { armourStand.setLeftArmPose(armourStand.getLeftArmPose().setY(angle)); return "Left Arm Y"; };
-                startConversation(player, conversationFactory, limbRotationApplicationFunction);
+                startConversation(player, new ArmourStandSetLimbRotationPrompt(limbRotationApplicationFunction));
                 break;
             case 14:
                 limbRotationApplicationFunction = angle -> { armourStand.setLeftArmPose(armourStand.getLeftArmPose().setZ(angle)); return "Left Arm Z"; };
-                startConversation(player, conversationFactory, limbRotationApplicationFunction);
+                startConversation(player, new ArmourStandSetLimbRotationPrompt(limbRotationApplicationFunction));
                 break;
 
             // right arm rotation
             case 15:
                 limbRotationApplicationFunction = angle -> { armourStand.setRightArmPose(armourStand.getRightArmPose().setX(angle)); return "Right Arm X"; };
-                startConversation(player, conversationFactory, limbRotationApplicationFunction);
+                startConversation(player, new ArmourStandSetLimbRotationPrompt(limbRotationApplicationFunction));
                 break;
             case 16:
                 limbRotationApplicationFunction = angle -> { armourStand.setRightArmPose(armourStand.getRightArmPose().setY(angle)); return "Right Arm Y"; };
-                startConversation(player, conversationFactory, limbRotationApplicationFunction);
+                startConversation(player, new ArmourStandSetLimbRotationPrompt(limbRotationApplicationFunction));
                 break;
             case 17:
                 limbRotationApplicationFunction = angle -> { armourStand.setRightArmPose(armourStand.getRightArmPose().setZ(angle)); return "Right Arm Z"; };
-                startConversation(player, conversationFactory, limbRotationApplicationFunction);
+                startConversation(player, new ArmourStandSetLimbRotationPrompt(limbRotationApplicationFunction));
                 break;
 
             // left leg rotation
             case 21:
                 limbRotationApplicationFunction = angle -> { armourStand.setLeftLegPose(armourStand.getLeftLegPose().setX(angle)); return "Left Leg X"; };
-                startConversation(player, conversationFactory, limbRotationApplicationFunction);
+                startConversation(player, new ArmourStandSetLimbRotationPrompt(limbRotationApplicationFunction));
                 break;
             case 22:
                 limbRotationApplicationFunction = angle -> { armourStand.setLeftLegPose(armourStand.getLeftLegPose().setY(angle)); return "Left Leg Y"; };
-                startConversation(player, conversationFactory, limbRotationApplicationFunction);
+                startConversation(player, new ArmourStandSetLimbRotationPrompt(limbRotationApplicationFunction));
                 break;
             case 23:
                 limbRotationApplicationFunction = angle -> { armourStand.setLeftLegPose(armourStand.getLeftLegPose().setZ(angle)); return "Left Leg Z"; };
-                startConversation(player, conversationFactory, limbRotationApplicationFunction);
+                startConversation(player, new ArmourStandSetLimbRotationPrompt(limbRotationApplicationFunction));
                 break;
 
             // left leg rotation
             case 24:
                 limbRotationApplicationFunction = angle -> { armourStand.setRightLegPose(armourStand.getRightLegPose().setX(angle)); return "Right Leg X"; };
-                startConversation(player, conversationFactory, limbRotationApplicationFunction);
+                startConversation(player, new ArmourStandSetLimbRotationPrompt(limbRotationApplicationFunction));
                 break;
             case 25:
                 limbRotationApplicationFunction = angle -> { armourStand.setRightLegPose(armourStand.getRightLegPose().setY(angle)); return "Right Leg Y"; };
-                startConversation(player, conversationFactory, limbRotationApplicationFunction);
+                startConversation(player, new ArmourStandSetLimbRotationPrompt(limbRotationApplicationFunction));
                 break;
             case 26:
                 limbRotationApplicationFunction = angle -> { armourStand.setRightLegPose(armourStand.getRightLegPose().setZ(angle)); return "Right Leg Z"; };
-                startConversation(player, conversationFactory, limbRotationApplicationFunction);
+                startConversation(player, new ArmourStandSetLimbRotationPrompt(limbRotationApplicationFunction));
                 break;
 
             case 40: // set armour stand name
@@ -436,13 +439,7 @@ public final class ArmourStandMainGUI implements InventoryGUI {
                     break;
                 }
 
-                Conversation nameConversation = conversationFactory
-                        .withFirstPrompt(new ArmourStandSetNamePrompt(armourStand))
-                        .withLocalEcho(false)
-                        .withEscapeSequence("cancel")
-                        .buildConversation(player);
-                player.closeInventory();
-                nameConversation.begin();
+                startConversation(player, new ArmourStandSetNamePrompt(armourStand));
                 break;
 
             case 41: // open advanced options menu
@@ -460,23 +457,11 @@ public final class ArmourStandMainGUI implements InventoryGUI {
                     break;
                 }
 
-                Conversation facingConversation = conversationFactory
-                        .withFirstPrompt(new ArmourStandSetFacingRotationPrompt(armourStand))
-                        .withLocalEcho(false)
-                        .withEscapeSequence("cancel")
-                        .buildConversation(player);
-                player.closeInventory();
-                facingConversation.begin();
+                startConversation(player, new ArmourStandSetFacingRotationPrompt(armourStand));
                 break;
 
             case 35: // move armour stand relative to itself
-                Conversation moveConversation = conversationFactory
-                        .withFirstPrompt(new ArmourStandMovePrompt(armourStand))
-                        .withLocalEcho(false)
-                        .withEscapeSequence("cancel")
-                        .buildConversation(player);
-                player.closeInventory();
-                moveConversation.begin();
+                startConversation(player, new ArmourStandMovePrompt(armourStand));
                 break;
 
             case 43: // kill armour stand
@@ -499,15 +484,22 @@ public final class ArmourStandMainGUI implements InventoryGUI {
         }
     }
 
-    private static void startConversation(Player player, ConversationFactory conversationFactory, Function<Double, String> limbRotationApplicationFunction) {
-        Conversation limbConversation = conversationFactory
-                .withFirstPrompt(new ArmourStandSetLimbRotationPrompt(limbRotationApplicationFunction))
+    private static void startConversation(Player player, Prompt prompt) {
+        ArmourStandModeler plugin = ArmourStandModeler.getPlugin(ArmourStandModeler.class);
+
+        Conversation limbConversation = plugin.getConversationFactory()
+                .withFirstPrompt(prompt)
                 .withLocalEcho(false)
                 .withEscapeSequence("cancel")
                 .buildConversation(player);
 
-        player.closeInventory();
-        limbConversation.begin();
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                player.closeInventory();
+                limbConversation.begin();
+            }
+        }.runTaskLater(ArmourStandModeler.getPlugin(ArmourStandModeler.class), 1);
     }
 }
 

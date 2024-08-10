@@ -115,7 +115,7 @@ public class ArmourStandAdvancedOptionsGUI implements InventoryGUI {
     }
 
     @Override
-    public void handleGUIClickEvent(InventoryClickEvent event, ConversationFactory conversationFactory) {
+    public void handleGUIClickEvent(InventoryClickEvent event) {
         event.setCancelled(true);
 
     }
