@@ -1,16 +1,21 @@
 package dev.aucorg.armourstandmodeler.inventory;
 
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.Material;
+import dev.aucorg.armourstandmodeler.ArmourStandInteractionMap;
+import dev.aucorg.armourstandmodeler.ArmourStandModeler;
+import org.bukkit.*;
 import org.bukkit.conversations.ConversationFactory;
-import org.bukkit.entity.ArmorStand;
-import org.bukkit.entity.Player;
+import org.bukkit.entity.*;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.material.MaterialData;
+import org.bukkit.metadata.FixedMetadataValue;
+import org.bukkit.metadata.MetadataValue;
+import org.bukkit.persistence.PersistentDataType;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.Arrays;
+import java.util.UUID;
 
 public class ArmourStandAdvancedOptionsGUI implements InventoryGUI {
     private final Inventory guiInventory;
@@ -101,6 +106,15 @@ public class ArmourStandAdvancedOptionsGUI implements InventoryGUI {
                 .addLore(ChatColor.GRAY + "Click to a attach lead")
                 .build();
 
+
+        guiButtons[8] = new GUIItemBuilder(Material.BAMBOO_DOOR)
+                .withName(ChatColor.GOLD + "Return to Main Menu")
+                .build();
+
+        guiButtons[17] = new GUIItemBuilder(Material.BARRIER)
+                .withName(ChatColor.RED + "Close Menu")
+                .build();
+
         return guiButtons;
     }
 
@@ -118,5 +132,103 @@ public class ArmourStandAdvancedOptionsGUI implements InventoryGUI {
     public void handleGUIClickEvent(InventoryClickEvent event) {
         event.setCancelled(true);
 
+        Player player = (Player) event.getWhoClicked();
+
+        ArmorStand armourStand = ArmourStandInteractionMap.getInstance().getArmourStand(player);
+
+        switch (event.getRawSlot()) {
+            case 2:
+                armourStand.setCustomNameVisible(!armourStand.isCustomNameVisible());
+                break;
+            case 3:
+                armourStand.setArms(!armourStand.hasArms());
+                break;
+            case 4:
+                armourStand.setBasePlate(!armourStand.hasBasePlate());
+                break;
+            case 5:
+                armourStand.setSmall(!armourStand.isSmall());
+                break;
+            case 6:
+                armourStand.setInvisible(!armourStand.isInvisible());
+                break;
+            case 11:
+                armourStand.setGlowing(!armourStand.isGlowing());
+                break;
+            case 12:
+                armourStand.setVisualFire(!armourStand.isVisualFire());
+                break;
+            case 13:
+                armourStand.setGravity(!armourStand.hasGravity());
+                break;
+            case 14:
+                armourStand.setInvulnerable(!armourStand.isInvulnerable());
+                break;
+            case 15:
+                delayedCloseInventory(player);
+
+                NamespacedKey leadAttachmentKey = new NamespacedKey(ArmourStandModeler.getPlugin(ArmourStandModeler.class), "ArmourStandModelerLeadAttachment");
+                if (armourStand.getPersistentDataContainer().has(leadAttachmentKey, PersistentDataType.STRING)) {
+                    UUID uuid = UUID.fromString(armourStand.getPersistentDataContainer().get(leadAttachmentKey, PersistentDataType.STRING));
+                    Entity leadEntity = Bukkit.getEntity(uuid);
+                    if (leadEntity != null) {
+                        if (leadEntity instanceof LivingEntity livingLeadEntity) {
+                            if (!livingLeadEntity.isLeashed()) {
+                                if (!checkAndRemoveLead(player)) return;
+                            }
+                        }
+                        leadEntity.remove();
+                    }
+                } else if (!checkAndRemoveLead(player)) return;
+
+                LivingEntity entity = (LivingEntity) armourStand.getWorld().spawnEntity(armourStand.getEyeLocation(), EntityType.COD);
+                entity.setAI(false);
+                entity.setSilent(true);
+                entity.setInvisible(true);
+                entity.setInvulnerable(true);
+                armourStand.addPassenger(entity);
+                armourStand.getPersistentDataContainer().set(leadAttachmentKey, PersistentDataType.STRING,  entity.getUniqueId().toString());
+                entity.setLeashHolder(player);
+                break;
+
+            case 8:
+                InventoryGUIController.getInstance().openInventory(player, armourStand, new ArmourStandMainGUI(player, armourStand));
+                return;
+            case 17:
+                delayedCloseInventory(player);
+                break;
+
+
+        }
+
+        event.getInventory().setContents(generateGUIButtons(armourStand));
+
+
     }
+
+    private static boolean checkAndRemoveLead(Player player) {
+        if (!player.getGameMode().equals(GameMode.CREATIVE) && !player.getGameMode().equals(GameMode.SPECTATOR)) {
+            if (!player.getInventory().contains(Material.LEAD)) {
+                player.sendMessage(ChatColor.YELLOW + "You need a lead to do that!");
+                return false;
+            } else {
+                int leadSlot = player.getInventory().first(Material.LEAD);
+                ItemStack leadStack = player.getInventory().getItem(leadSlot);
+                leadStack.setAmount(leadStack.getAmount() - 1);
+                player.getInventory().setItem(leadSlot, leadStack);
+                return true;
+            }
+        }
+        return true;
+    }
+
+    private static void delayedCloseInventory(Player player) {
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                player.closeInventory();
+            }
+        }.runTaskLater(ArmourStandModeler.getPlugin(ArmourStandModeler.class), 1);
+    }
+
 }
