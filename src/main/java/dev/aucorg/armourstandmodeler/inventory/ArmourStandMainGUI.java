@@ -3,6 +3,7 @@ package dev.aucorg.armourstandmodeler.inventory;
 import dev.aucorg.armourstandmodeler.ArmourStandInteractionMap;
 import dev.aucorg.armourstandmodeler.chatinput.ArmourStandMovePrompt;
 import dev.aucorg.armourstandmodeler.chatinput.ArmourStandSetFacingRotationPrompt;
+import dev.aucorg.armourstandmodeler.chatinput.ArmourStandSetLimbRotationPrompt;
 import dev.aucorg.armourstandmodeler.chatinput.ArmourStandSetNamePrompt;
 import org.bukkit.*;
 import org.bukkit.conversations.*;
@@ -13,8 +14,10 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.EntityEquipment;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.util.EulerAngle;
 
 import java.util.Arrays;
+import java.util.function.Function;
 
 public class ArmourStandMainGUI {
     public static Inventory createGUI(Player p, ArmorStand as) {
@@ -100,19 +103,19 @@ public class ArmourStandMainGUI {
         guiButtons[3] = new GUIItemBuilder(Material.LEATHER_HELMET)
                 .withName(ChatColor.GOLD + "Armour Stand Head X Rotation")
                 .addLore(ChatColor.GRAY + "Click to change head X rotation")
-                .addLore(ChatColor.DARK_GRAY + "Current: " + ChatColor.YELLOW + Double.toString(as.getHeadPose().getX()))
+                .addLore(ChatColor.DARK_GRAY + "Current: " + ChatColor.YELLOW + Math.toDegrees(as.getHeadPose().getX()))
                 .hideAttributes()
                 .build();
         guiButtons[4] = new GUIItemBuilder(Material.LEATHER_HELMET)
                 .withName(ChatColor.GOLD + "Armour Stand Head Y Rotation")
                 .addLore(ChatColor.GRAY + "Click to change head Y rotation")
-                .addLore(ChatColor.DARK_GRAY + "Current: " + ChatColor.YELLOW + Double.toString(as.getHeadPose().getY()))
+                .addLore(ChatColor.DARK_GRAY + "Current: " + ChatColor.YELLOW + Math.toDegrees(as.getHeadPose().getY()))
                 .hideAttributes()
                 .build();
         guiButtons[5] = new GUIItemBuilder(Material.LEATHER_HELMET)
                 .withName(ChatColor.GOLD + "Armour Stand Head Z Rotation")
                 .addLore(ChatColor.GRAY + "Click to change head Z rotation")
-                .addLore(ChatColor.DARK_GRAY + "Current: " + ChatColor.YELLOW + Double.toString(as.getHeadPose().getZ()))
+                .addLore(ChatColor.DARK_GRAY + "Current: " + ChatColor.YELLOW + Math.toDegrees(as.getHeadPose().getZ()))
                 .hideAttributes()
                 .build();
 
@@ -120,19 +123,19 @@ public class ArmourStandMainGUI {
         guiButtons[6] = new GUIItemBuilder(Material.LEATHER_CHESTPLATE)
                 .withName(ChatColor.GOLD + "Armour Stand Body X Rotation")
                 .addLore(ChatColor.GRAY + "Click to change body X rotation")
-                .addLore(ChatColor.DARK_GRAY + "Current: " + ChatColor.YELLOW + Double.toString(as.getBodyPose().getX()))
+                .addLore(ChatColor.DARK_GRAY + "Current: " + ChatColor.YELLOW + Math.toDegrees(as.getBodyPose().getX()))
                 .hideAttributes()
                 .build();
         guiButtons[7] = new GUIItemBuilder(Material.LEATHER_CHESTPLATE)
                 .withName(ChatColor.GOLD + "Armour Stand Body Y Rotation")
                 .addLore(ChatColor.GRAY + "Click to change body Y rotation")
-                .addLore(ChatColor.DARK_GRAY + "Current: " + ChatColor.YELLOW + Double.toString(as.getBodyPose().getY()))
+                .addLore(ChatColor.DARK_GRAY + "Current: " + ChatColor.YELLOW + Math.toDegrees(as.getBodyPose().getY()))
                 .hideAttributes()
                 .build();
         guiButtons[8] = new GUIItemBuilder(Material.LEATHER_CHESTPLATE)
                 .withName(ChatColor.GOLD + "Armour Stand Body Z Rotation")
                 .addLore(ChatColor.GRAY + "Click to change body Z rotation")
-                .addLore(ChatColor.DARK_GRAY + "Current: " + ChatColor.YELLOW + Double.toString(as.getBodyPose().getZ()))
+                .addLore(ChatColor.DARK_GRAY + "Current: " + ChatColor.YELLOW + Math.toDegrees(as.getBodyPose().getZ()))
                 .hideAttributes()
                 .build();
 
@@ -140,68 +143,68 @@ public class ArmourStandMainGUI {
         guiButtons[12] = new GUIItemBuilder(Material.STICK)
                 .withName(ChatColor.GOLD + "Armour Stand Left Arm X Rotation")
                 .addLore(ChatColor.GRAY + "Click to change left arm X rotation")
-                .addLore(ChatColor.DARK_GRAY + "Current: " + ChatColor.YELLOW + Double.toString(as.getLeftArmPose().getX()))
+                .addLore(ChatColor.DARK_GRAY + "Current: " + ChatColor.YELLOW + Math.toDegrees(as.getLeftArmPose().getX()))
                 .build();
         guiButtons[13] = new GUIItemBuilder(Material.STICK)
                 .withName(ChatColor.GOLD + "Armour Stand Left Arm Y Rotation")
                 .addLore(ChatColor.GRAY + "Click to change left arm Y rotation")
-                .addLore(ChatColor.DARK_GRAY + "Current: " + ChatColor.YELLOW + Double.toString(as.getLeftArmPose().getY()))
+                .addLore(ChatColor.DARK_GRAY + "Current: " + ChatColor.YELLOW + Math.toDegrees(as.getLeftArmPose().getY()))
                 .build();
         guiButtons[14] = new GUIItemBuilder(Material.STICK)
                 .withName(ChatColor.GOLD + "Armour Stand Left Arm Z Rotation")
                 .addLore(ChatColor.GRAY + "Click to change left arm Z rotation")
-                .addLore(ChatColor.DARK_GRAY + "Current: " + ChatColor.YELLOW + Double.toString(as.getLeftArmPose().getZ()))
+                .addLore(ChatColor.DARK_GRAY + "Current: " + ChatColor.YELLOW + Math.toDegrees(as.getLeftArmPose().getZ()))
                 .build();
 
         // right arm rotation gui buttons
         guiButtons[15] = new GUIItemBuilder(Material.STICK)
                 .withName(ChatColor.GOLD + "Armour Stand Right Arm X Rotation")
                 .addLore(ChatColor.GRAY + "Click to change right arm X rotation")
-                .addLore(ChatColor.DARK_GRAY + "Current: " + ChatColor.YELLOW + Double.toString(as.getRightArmPose().getX()))
+                .addLore(ChatColor.DARK_GRAY + "Current: " + ChatColor.YELLOW + Math.toDegrees(as.getRightArmPose().getX()))
                 .build();
         guiButtons[16] = new GUIItemBuilder(Material.STICK)
                 .withName(ChatColor.GOLD + "Armour Stand Right Arm Y Rotation")
                 .addLore(ChatColor.GRAY + "Click to change right arm Y rotation")
-                .addLore(ChatColor.DARK_GRAY + "Current: " + ChatColor.YELLOW + Double.toString(as.getRightArmPose().getY()))
+                .addLore(ChatColor.DARK_GRAY + "Current: " + ChatColor.YELLOW + Math.toDegrees(as.getRightArmPose().getY()))
                 .build();
         guiButtons[17] = new GUIItemBuilder(Material.STICK)
                 .withName(ChatColor.GOLD + "Armour Stand Right Arm Z Rotation")
                 .addLore(ChatColor.GRAY + "Click to change right arm Z rotation")
-                .addLore(ChatColor.DARK_GRAY + "Current: " + ChatColor.YELLOW + Double.toString(as.getRightArmPose().getZ()))
+                .addLore(ChatColor.DARK_GRAY + "Current: " + ChatColor.YELLOW + Math.toDegrees(as.getRightArmPose().getZ()))
                 .build();
 
         // left leg rotation gui buttons
         guiButtons[21] = new GUIItemBuilder(Material.LEATHER_LEGGINGS)
                 .withName(ChatColor.GOLD + "Armour Stand Left Leg X Rotation")
                 .addLore(ChatColor.GRAY + "Click to change left leg X rotation")
-                .addLore(ChatColor.DARK_GRAY + "Current: " + ChatColor.YELLOW + Double.toString(as.getLeftLegPose().getX()))
+                .addLore(ChatColor.DARK_GRAY + "Current: " + ChatColor.YELLOW + Math.toDegrees(as.getLeftLegPose().getX()))
                 .build();
         guiButtons[22] = new GUIItemBuilder(Material.LEATHER_LEGGINGS)
                 .withName(ChatColor.GOLD + "Armour Stand Left Leg Y Rotation")
                 .addLore(ChatColor.GRAY + "Click to change left leg Y rotation")
-                .addLore(ChatColor.DARK_GRAY + "Current: " + ChatColor.YELLOW + Double.toString(as.getLeftLegPose().getY()))
+                .addLore(ChatColor.DARK_GRAY + "Current: " + ChatColor.YELLOW + Math.toDegrees(as.getLeftLegPose().getY()))
                 .build();
         guiButtons[23] = new GUIItemBuilder(Material.LEATHER_LEGGINGS)
                 .withName(ChatColor.GOLD + "Armour Stand Left Leg Z Rotation")
                 .addLore(ChatColor.GRAY + "Click to change left leg Z rotation")
-                .addLore(ChatColor.DARK_GRAY + "Current: " + ChatColor.YELLOW + Double.toString(as.getLeftLegPose().getZ()))
+                .addLore(ChatColor.DARK_GRAY + "Current: " + ChatColor.YELLOW + Math.toDegrees(as.getLeftLegPose().getZ()))
                 .build();
 
         // right leg rotation gui buttons
         guiButtons[24] = new GUIItemBuilder(Material.LEATHER_LEGGINGS)
                 .withName(ChatColor.GOLD + "Armour Stand Right Leg X Rotation")
                 .addLore(ChatColor.GRAY + "Click to change right leg X rotation")
-                .addLore(ChatColor.DARK_GRAY + "Current: " + ChatColor.YELLOW + Double.toString(as.getRightLegPose().getX()))
+                .addLore(ChatColor.DARK_GRAY + "Current: " + ChatColor.YELLOW + Math.toDegrees(as.getRightLegPose().getX()))
                 .build();
         guiButtons[25] = new GUIItemBuilder(Material.LEATHER_LEGGINGS)
                 .withName(ChatColor.GOLD + "Armour Stand Right Leg Y Rotation")
                 .addLore(ChatColor.GRAY + "Click to change right leg Y rotation")
-                .addLore(ChatColor.DARK_GRAY + "Current: " + ChatColor.YELLOW + Double.toString(as.getRightLegPose().getY()))
+                .addLore(ChatColor.DARK_GRAY + "Current: " + ChatColor.YELLOW + Math.toDegrees(as.getRightLegPose().getY()))
                 .build();
         guiButtons[26] = new GUIItemBuilder(Material.LEATHER_LEGGINGS)
                 .withName(ChatColor.GOLD + "Armour Stand Right Leg Z Rotation")
                 .addLore(ChatColor.GRAY + "Click to change right leg Z rotation")
-                .addLore(ChatColor.DARK_GRAY + "Current: " + ChatColor.YELLOW + Double.toString(as.getRightLegPose().getZ()))
+                .addLore(ChatColor.DARK_GRAY + "Current: " + ChatColor.YELLOW + Math.toDegrees(as.getRightLegPose().getZ()))
                 .build();
 
         guiButtons[34] = new GUIItemBuilder(Material.COMPASS)
@@ -240,6 +243,8 @@ public class ArmourStandMainGUI {
 
         // the item in the clicked slot prior to the event going through
         ItemStack clickedItem = event.getCurrentItem();
+
+        Function<Double, String> limbRotationApplicationFunction = angle -> "";
 
         switch (slot) {
             // helmet
@@ -302,6 +307,92 @@ public class ArmourStandMainGUI {
                 armourStand.getEquipment().setItemInMainHand(cursor);
                 break;
 
+            // head rotation
+            case 3:
+                limbRotationApplicationFunction = angle -> { armourStand.setHeadPose(armourStand.getHeadPose().setX(angle)); return "Head X"; };
+                startConversation(player, conversationFactory, limbRotationApplicationFunction);
+                break;
+            case 4:
+                limbRotationApplicationFunction = angle -> { armourStand.setHeadPose(armourStand.getHeadPose().setY(angle)); return "Head Y"; };
+                startConversation(player, conversationFactory, limbRotationApplicationFunction);
+                break;
+            case 5:
+                limbRotationApplicationFunction = angle -> { armourStand.setHeadPose(armourStand.getHeadPose().setZ(angle)); return "Head Z"; };
+                startConversation(player, conversationFactory, limbRotationApplicationFunction);
+                break;
+
+            // body rotation
+            case 6:
+                limbRotationApplicationFunction = angle -> { armourStand.setBodyPose(armourStand.getBodyPose().setX(angle)); return "Body X"; };
+                startConversation(player, conversationFactory, limbRotationApplicationFunction);
+                break;
+            case 7:
+                limbRotationApplicationFunction = angle -> { armourStand.setBodyPose(armourStand.getBodyPose().setY(angle)); return "Body Y"; };
+                startConversation(player, conversationFactory, limbRotationApplicationFunction);
+                break;
+            case 8:
+                limbRotationApplicationFunction = angle -> { armourStand.setBodyPose(armourStand.getBodyPose().setZ(angle)); return "Body Z"; };
+                startConversation(player, conversationFactory, limbRotationApplicationFunction);
+                break;
+
+            // left arm rotation
+            case 12:
+                limbRotationApplicationFunction = angle -> { armourStand.setLeftArmPose(armourStand.getLeftArmPose().setX(angle)); return "Left Arm X"; };
+                startConversation(player, conversationFactory, limbRotationApplicationFunction);
+                break;
+            case 13:
+                limbRotationApplicationFunction = angle -> { armourStand.setLeftArmPose(armourStand.getLeftArmPose().setY(angle)); return "Left Arm Y"; };
+                startConversation(player, conversationFactory, limbRotationApplicationFunction);
+                break;
+            case 14:
+                limbRotationApplicationFunction = angle -> { armourStand.setLeftArmPose(armourStand.getLeftArmPose().setZ(angle)); return "Left Arm Z"; };
+                startConversation(player, conversationFactory, limbRotationApplicationFunction);
+                break;
+
+            // right arm rotation
+            case 15:
+                limbRotationApplicationFunction = angle -> { armourStand.setRightArmPose(armourStand.getRightArmPose().setX(angle)); return "Right Arm X"; };
+                startConversation(player, conversationFactory, limbRotationApplicationFunction);
+                break;
+            case 16:
+                limbRotationApplicationFunction = angle -> { armourStand.setRightArmPose(armourStand.getRightArmPose().setY(angle)); return "Right Arm Y"; };
+                startConversation(player, conversationFactory, limbRotationApplicationFunction);
+                break;
+            case 17:
+                limbRotationApplicationFunction = angle -> { armourStand.setRightArmPose(armourStand.getRightArmPose().setZ(angle)); return "Right Arm Z"; };
+                startConversation(player, conversationFactory, limbRotationApplicationFunction);
+                break;
+
+            // left leg rotation
+            case 21:
+                limbRotationApplicationFunction = angle -> { armourStand.setLeftLegPose(armourStand.getLeftLegPose().setX(angle)); return "Left Leg X"; };
+                startConversation(player, conversationFactory, limbRotationApplicationFunction);
+                break;
+            case 22:
+                limbRotationApplicationFunction = angle -> { armourStand.setLeftLegPose(armourStand.getLeftLegPose().setY(angle)); return "Left Leg Y"; };
+                startConversation(player, conversationFactory, limbRotationApplicationFunction);
+                break;
+            case 23:
+                limbRotationApplicationFunction = angle -> { armourStand.setLeftLegPose(armourStand.getLeftLegPose().setZ(angle)); return "Left Leg Z"; };
+                startConversation(player, conversationFactory, limbRotationApplicationFunction);
+                break;
+
+            // left leg rotation
+            case 24:
+                limbRotationApplicationFunction = angle -> { armourStand.setRightLegPose(armourStand.getRightLegPose().setX(angle)); return "Right Leg X"; };
+                startConversation(player, conversationFactory, limbRotationApplicationFunction);
+                break;
+            case 25:
+                limbRotationApplicationFunction = angle -> { armourStand.setRightLegPose(armourStand.getRightLegPose().setY(angle)); return "Right Leg Y"; };
+                startConversation(player, conversationFactory, limbRotationApplicationFunction);
+                break;
+            case 26:
+                limbRotationApplicationFunction = angle -> { armourStand.setRightLegPose(armourStand.getRightLegPose().setZ(angle)); return "Right Leg Z"; };
+                startConversation(player, conversationFactory, limbRotationApplicationFunction);
+                break;
+
+
+
             // set armour stand name
             case 40:
                 if (event.getClick().equals(ClickType.SHIFT_RIGHT)) {
@@ -362,6 +453,16 @@ public class ArmourStandMainGUI {
                 player.closeInventory();
                 break;
         }
+    }
+
+    private static void startConversation(Player player, ConversationFactory conversationFactory, Function<Double, String> limbRotationApplicationFunction) {
+        Conversation limbConversation = conversationFactory
+                .withFirstPrompt(new ArmourStandSetLimbRotationPrompt(limbRotationApplicationFunction))
+                .withLocalEcho(false)
+                .withEscapeSequence("cancel")
+                .buildConversation(player);
+        player.closeInventory();
+        limbConversation.begin();
     }
 }
 
