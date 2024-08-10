@@ -1,6 +1,7 @@
 package dev.aucorg.armourstandmodeler.eventlistener;
 
 import dev.aucorg.armourstandmodeler.ArmourStandInteractionMap;
+import dev.aucorg.armourstandmodeler.inventory.InventoryGUIController;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -11,8 +12,6 @@ public class InventoryCloseEventListener implements Listener {
     public void onInventoryClose(InventoryCloseEvent event) {
         Player player = (Player) event.getPlayer();
 
-        if (ArmourStandInteractionMap.getInstance().isPlayerInteracting(player)) {
-            ArmourStandInteractionMap.getInstance().removeInteraction(player);
-        }
+        InventoryGUIController.getInstance().handleInventoryCloseEvent(player);
     }
 }

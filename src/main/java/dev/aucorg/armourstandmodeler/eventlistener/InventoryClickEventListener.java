@@ -2,6 +2,7 @@ package dev.aucorg.armourstandmodeler.eventlistener;
 
 import dev.aucorg.armourstandmodeler.ArmourStandInteractionMap;
 import dev.aucorg.armourstandmodeler.inventory.ArmourStandMainGUI;
+import dev.aucorg.armourstandmodeler.inventory.InventoryGUIController;
 import org.bukkit.Sound;
 import org.bukkit.conversations.ConversationFactory;
 import org.bukkit.entity.Player;
@@ -50,6 +51,7 @@ public class InventoryClickEventListener implements Listener {
         if (event.isCancelled() && !event.getAction().equals(InventoryAction.NOTHING)) {
             player.playSound(player.getEyeLocation(), Sound.UI_BUTTON_CLICK, 0.3f, 1f);
         }
-        ArmourStandMainGUI.handleGUIClickEvent(event, conversationFactory);
+
+        InventoryGUIController.getInstance().handleInventoryClickEvent(event, conversationFactory);
     }
 }

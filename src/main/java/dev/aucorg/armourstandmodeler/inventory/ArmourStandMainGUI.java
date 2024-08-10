@@ -18,9 +18,15 @@ import org.bukkit.inventory.ItemStack;
 import java.util.Arrays;
 import java.util.function.Function;
 
-public final class ArmourStandMainGUI {
-    private ArmourStandMainGUI() {};
-    public static Inventory createGUI(Player p, ArmorStand as) {
+public final class ArmourStandMainGUI implements InventoryGUI {
+    private Inventory gui;
+
+    public ArmourStandMainGUI(Player p, ArmorStand as) {
+        this.gui = createGUI(p, as);
+    };
+
+
+    private Inventory createGUI(Player p, ArmorStand as) {
         String armourStandName = (as.getCustomName() == null) ? Integer.toString(as.getEntityId())  : as.getCustomName();
 
         Inventory inventory = Bukkit.createInventory(p, 45, "Armour Stand: " + ChatColor.DARK_AQUA + armourStandName);
@@ -97,6 +103,12 @@ public final class ArmourStandMainGUI {
                 .addLore(ChatColor.GRAY + "Click to change name of the armour stand")
                 .addLore(ChatColor.DARK_GRAY + "Current: " + ChatColor.RESET + (as.getCustomName() == null ? "unnamed" : as.getCustomName()))
                 .addLore(ChatColor.DARK_GRAY + "Shift + Right-Click to reset")
+                .build();
+
+        // advanced settings button
+        guiButtons[41] = new GUIItemBuilder(Material.COMMAND_BLOCK)
+                .withName(ChatColor.GOLD + "Advanced Options")
+                .addLore(ChatColor.GRAY + "Click to open advanced options menu")
                 .build();
 
         // head rotation gui buttons
@@ -233,7 +245,18 @@ public final class ArmourStandMainGUI {
         return guiButtons;
     }
 
-    public static void handleGUIClickEvent(InventoryClickEvent event, ConversationFactory conversationFactory) {
+    @Override
+    public Inventory getInventory() {
+        return gui;
+    }
+
+    @Override
+    public GUIType getGUIType() {
+        return GUIType.MAIN_MENU;
+    }
+
+    @Override
+    public void handleGUIClickEvent(InventoryClickEvent event, ConversationFactory conversationFactory) {
         int slot = event.getRawSlot();
 
         Player player = (Player) event.getWhoClicked();
@@ -414,6 +437,10 @@ public final class ArmourStandMainGUI {
                         .buildConversation(player);
                 player.closeInventory();
                 nameConversation.begin();
+                break;
+
+            case 41: // open advanced options menu
+                player.closeInventory();
                 break;
 
             case 34: // armour stand set facing rotation
