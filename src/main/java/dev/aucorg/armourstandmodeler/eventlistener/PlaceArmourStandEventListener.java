@@ -20,13 +20,13 @@ public class PlaceArmourStandEventListener implements Listener {
 
         armourStand.setArms(true);
 
-        EulerAngle zeroAngle = new EulerAngle(0, 0, 0);
-        armourStand.setHeadPose(zeroAngle);
-        armourStand.setBodyPose(zeroAngle);
-        armourStand.setLeftArmPose(zeroAngle);
-        armourStand.setRightArmPose(zeroAngle);
-        armourStand.setLeftLegPose(zeroAngle);
-        armourStand.setRightLegPose(zeroAngle);
+
+        armourStand.setHeadPose(EulerAngle.ZERO);
+        armourStand.setBodyPose(EulerAngle.ZERO);
+        armourStand.setLeftArmPose(EulerAngle.ZERO);
+        armourStand.setRightArmPose(EulerAngle.ZERO);
+        armourStand.setLeftLegPose(EulerAngle.ZERO);
+        armourStand.setRightLegPose(EulerAngle.ZERO);
         armourStand.setGravity(false);
 
         if (event.getPlayer().getGameMode().equals(GameMode.CREATIVE)) {
