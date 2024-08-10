@@ -6,7 +6,6 @@ import org.bukkit.conversations.ConversationContext;
 import org.bukkit.conversations.Prompt;
 import org.bukkit.conversations.RegexPrompt;
 import org.bukkit.entity.ArmorStand;
-import org.bukkit.entity.Player;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;

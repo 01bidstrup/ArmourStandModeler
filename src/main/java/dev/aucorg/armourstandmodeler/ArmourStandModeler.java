@@ -12,10 +12,10 @@ public final class ArmourStandModeler extends JavaPlugin {
     public void onEnable() {
         PluginManager pluginManager = getServer().getPluginManager();
 
-
         // debug
         pluginManager.registerEvents(new DebugInventoryClickListener(), this);
         this.getCommand("printinteractions").setExecutor(new DebugPrintInteractionListCommand());
+        // debug
 
         ConversationFactory conversationFactory = new ConversationFactory(this);
 
@@ -25,12 +25,9 @@ public final class ArmourStandModeler extends JavaPlugin {
         pluginManager.registerEvents(new InventoryDragEventListener(), this);
         pluginManager.registerEvents(new InventoryCloseEventListener(), this);
         pluginManager.registerEvents(new ArmourStandDamageEventListener(), this);
-
-
     }
 
     @Override
     public void onDisable() {
-        // Plugin shutdown logic
     }
 }

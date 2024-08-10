@@ -1,11 +1,8 @@
 package dev.aucorg.armourstandmodeler.eventlistener;
 
 import dev.aucorg.armourstandmodeler.ArmourStandInteractionMap;
-import dev.aucorg.armourstandmodeler.ArmourStandModeler;
 import dev.aucorg.armourstandmodeler.inventory.ArmourStandMainGUI;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.Server;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;

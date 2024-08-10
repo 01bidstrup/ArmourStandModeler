@@ -43,5 +43,4 @@ public class ArmourStandInteractionMap {
     public static Set<Map.Entry<Player, ArmorStand>> getInteractionPairs() {
         return ARMOUR_STAND_INTERACTION_MAP.entrySet();
     }
-
 }

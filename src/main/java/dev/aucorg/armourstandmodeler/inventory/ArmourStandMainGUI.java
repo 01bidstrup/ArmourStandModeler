@@ -6,8 +6,6 @@ import dev.aucorg.armourstandmodeler.chatinput.ArmourStandSetFacingRotationPromp
 import dev.aucorg.armourstandmodeler.chatinput.ArmourStandSetNamePrompt;
 import org.bukkit.*;
 import org.bukkit.conversations.*;
-import org.bukkit.damage.DamageSource;
-import org.bukkit.damage.DamageType;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
@@ -17,9 +15,6 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
 
 public class ArmourStandMainGUI {
     public static Inventory createGUI(Player p, ArmorStand as) {
@@ -209,8 +204,6 @@ public class ArmourStandMainGUI {
                 .addLore(ChatColor.DARK_GRAY + "Current: " + ChatColor.YELLOW + Double.toString(as.getRightLegPose().getZ()))
                 .build();
 
-
-
         guiButtons[34] = new GUIItemBuilder(Material.COMPASS)
                 .withName(ChatColor.GOLD + "Armour Stand Facing Rotation")
                 .addLore(ChatColor.GRAY + "Click to change armour stand facing rotation")
@@ -236,8 +229,6 @@ public class ArmourStandMainGUI {
 
     public static void handleGUIClickEvent(InventoryClickEvent event, ConversationFactory conversationFactory) {
         int slot = event.getRawSlot();
-
-
 
         Player player = (Player) event.getWhoClicked();
         boolean isPlayerCreative = player.getGameMode().equals(GameMode.CREATIVE);
@@ -311,7 +302,6 @@ public class ArmourStandMainGUI {
                 armourStand.getEquipment().setItemInMainHand(cursor);
                 break;
 
-
             // set armour stand name
             case 40:
                 if (event.getClick().equals(ClickType.SHIFT_RIGHT)) {
@@ -366,7 +356,6 @@ public class ArmourStandMainGUI {
                 }
                 armourStand.getLocation().getWorld().playSound(armourStand.getLocation(), Sound.ENTITY_ARMOR_STAND_HIT, 1, 1);
                 armourStand.getLocation().getWorld().playSound(armourStand.getLocation(), Sound.ENTITY_ARMOR_STAND_BREAK, 1, 1);
-
 
                 armourStand.remove();
             case 44:

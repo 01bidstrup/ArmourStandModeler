@@ -15,8 +15,6 @@ import java.util.Optional;
 public class InventoryDragEventListener implements Listener {
     private static final int[] UNLOCKED_SLOTS = new int[] {1, 10, 19, 28, 37, 39};
 
-
-
     @EventHandler
     public void onInventoryDrag(InventoryDragEvent event) {
         Player player = (Player) event.getWhoClicked();

@@ -19,6 +19,7 @@ public class PlaceArmourStandEventListener implements Listener {
         ArmorStand armourStand = (ArmorStand) event.getEntity();
 
         armourStand.setArms(true);
+
         EulerAngle zeroAngle = new EulerAngle(0, 0, 0);
         armourStand.setHeadPose(zeroAngle);
         armourStand.setBodyPose(zeroAngle);
