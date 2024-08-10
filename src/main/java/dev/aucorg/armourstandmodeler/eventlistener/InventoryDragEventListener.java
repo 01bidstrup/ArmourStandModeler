@@ -19,7 +19,7 @@ public class InventoryDragEventListener implements Listener {
     public void onInventoryDrag(InventoryDragEvent event) {
         Player player = (Player) event.getWhoClicked();
 
-        if (ArmourStandInteractionMap.isPlayerInteracting(player)) {
+        if (ArmourStandInteractionMap.getInstance().isPlayerInteracting(player)) {
             int inventorySize = event.getInventory().getSize();
             // check if any of the dragged slots are in the gui inventory
             if (event.getRawSlots().stream().anyMatch(i -> i < inventorySize)) {

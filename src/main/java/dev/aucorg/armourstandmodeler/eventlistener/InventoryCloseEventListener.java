@@ -11,8 +11,8 @@ public class InventoryCloseEventListener implements Listener {
     public void onInventoryClose(InventoryCloseEvent event) {
         Player player = (Player) event.getPlayer();
 
-        if (ArmourStandInteractionMap.isPlayerInteracting(player)) {
-            ArmourStandInteractionMap.removeInteraction(player);
+        if (ArmourStandInteractionMap.getInstance().isPlayerInteracting(player)) {
+            ArmourStandInteractionMap.getInstance().removeInteraction(player);
         }
     }
 }

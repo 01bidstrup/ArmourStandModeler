@@ -235,7 +235,7 @@ public class ArmourStandMainGUI {
 
         Player player = (Player) event.getWhoClicked();
         boolean isPlayerCreative = player.getGameMode().equals(GameMode.CREATIVE);
-        ArmorStand armourStand = ArmourStandInteractionMap.getArmourStand(player);
+        ArmorStand armourStand = ArmourStandInteractionMap.getInstance().getArmourStand(player);
 
         // the item on the cursor prior to the event going through
         ItemStack cursor = event.getCursor();

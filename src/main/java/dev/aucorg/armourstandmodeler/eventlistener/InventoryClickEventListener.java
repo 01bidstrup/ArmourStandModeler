@@ -25,7 +25,7 @@ public class InventoryClickEventListener implements Listener {
     public void onPlayerInventoryClick(InventoryClickEvent event) {
         Player player = (Player) event.getWhoClicked();
 
-        if (!ArmourStandInteractionMap.isPlayerInteracting(player)) {
+        if (!ArmourStandInteractionMap.getInstance().isPlayerInteracting(player)) {
             return;
         }
 

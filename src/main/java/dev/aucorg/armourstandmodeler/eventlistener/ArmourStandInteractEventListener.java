@@ -24,13 +24,13 @@ public class ArmourStandInteractEventListener implements Listener {
 
         event.setCancelled(true);
 
-        if (ArmourStandInteractionMap.getArmourStands().stream().anyMatch(as -> as.equals(armourStand))) {
-            player.sendMessage(ChatColor.RED + ArmourStandInteractionMap.getPlayer(armourStand).getDisplayName() + " is already interacting with that armour stand!");
+        if (ArmourStandInteractionMap.getInstance().getArmourStands().stream().anyMatch(as -> as.equals(armourStand))) {
+            player.sendMessage(ChatColor.RED + ArmourStandInteractionMap.getInstance().getPlayer(armourStand).getDisplayName() + " is already interacting with that armour stand!");
             return;
         }
 
 
-        ArmourStandInteractionMap.addInteraction(player, armourStand);
+        ArmourStandInteractionMap.getInstance().addInteraction(player, armourStand);
         player.openInventory(ArmourStandMainGUI.createGUI(player, armourStand));
     }
 }

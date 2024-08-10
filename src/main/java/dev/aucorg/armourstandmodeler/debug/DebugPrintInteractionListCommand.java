@@ -8,7 +8,7 @@ import org.bukkit.command.CommandSender;
 public class DebugPrintInteractionListCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
-        ArmourStandInteractionMap.getInteractionPairs().forEach(entry ->
+        ArmourStandInteractionMap.getInstance().getInteractionPairs().forEach(entry ->
                 commandSender.sendMessage(entry.getKey().getDisplayName() + ": " + entry.getValue().getUniqueId()));
         return true;
     }
