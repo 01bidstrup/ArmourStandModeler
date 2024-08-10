@@ -2,6 +2,7 @@ package dev.aucorg.armourstandmodeler.eventlistener;
 
 import dev.aucorg.armourstandmodeler.ArmourStandInteractionMap;
 import dev.aucorg.armourstandmodeler.inventory.ArmourStandMainGUI;
+import dev.aucorg.armourstandmodeler.inventory.GUIState;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Entity;
@@ -30,7 +31,7 @@ public class ArmourStandInteractEventListener implements Listener {
         }
 
 
-        ArmourStandInteractionMap.getInstance().addInteraction(player, armourStand);
+        ArmourStandInteractionMap.getInstance().addInteraction(player, armourStand, GUIState.MAIN_MENU);
         player.openInventory(ArmourStandMainGUI.createGUI(player, armourStand));
     }
 }

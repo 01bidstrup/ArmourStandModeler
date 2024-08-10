@@ -1,11 +1,13 @@
 package dev.aucorg.armourstandmodeler;
 
+import dev.aucorg.armourstandmodeler.inventory.GUIState;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Player;
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
@@ -19,6 +21,7 @@ public enum ArmourStandInteractionMap {
     }
 
     private final BiMap<Player, ArmorStand> ARMOUR_STAND_INTERACTION_MAP = HashBiMap.create();
+    private final Map<Player, GUIState> PLAYER_GUI_STATE_MAP = new HashMap<>();
 
     public ArmorStand getArmourStand(Player p) {
         return ARMOUR_STAND_INTERACTION_MAP.get(p);
@@ -28,12 +31,14 @@ public enum ArmourStandInteractionMap {
         return ARMOUR_STAND_INTERACTION_MAP.inverse().get(as);
     }
 
-    public void addInteraction(Player p, ArmorStand as) {
+    public void addInteraction(Player p, ArmorStand as, GUIState guiType) {
         ARMOUR_STAND_INTERACTION_MAP.put(p, as);
+        PLAYER_GUI_STATE_MAP.put(p, guiType);
     }
 
     public void removeInteraction(Player p) {
         ARMOUR_STAND_INTERACTION_MAP.remove(p);
+        PLAYER_GUI_STATE_MAP.remove(p);
     }
 
     public boolean isPlayerInteracting(Player p) {
