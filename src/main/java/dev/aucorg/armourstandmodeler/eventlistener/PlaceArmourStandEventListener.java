@@ -20,7 +20,6 @@ public class PlaceArmourStandEventListener implements Listener {
 
         armourStand.setArms(true);
 
-
         armourStand.setHeadPose(EulerAngle.ZERO);
         armourStand.setBodyPose(EulerAngle.ZERO);
         armourStand.setLeftArmPose(EulerAngle.ZERO);
@@ -32,7 +31,6 @@ public class PlaceArmourStandEventListener implements Listener {
         if (event.getPlayer().getGameMode().equals(GameMode.CREATIVE)) {
             armourStand.setInvulnerable(true);
         }
-
     }
 }
 
