@@ -66,11 +66,11 @@ public enum InventoryGUIController {
 
             // slot and rawslot are only equal if the click is in the gui inventory
             if (event.getSlot() != event.getRawSlot()) {
-                // shift clicking items into the gui is annoying to implement so it is not allowed for now
-                if (event.getClick().equals(ClickType.SHIFT_LEFT)  || event.getClick().equals(ClickType.SHIFT_RIGHT)) {
-                    event.setCancelled(true);
+                // shift clicking items into the gui may be allowed so this is skipped here
+                // so it can be handled in the inventory's own method
+                if (!event.getClick().equals(ClickType.SHIFT_LEFT)  && !event.getClick().equals(ClickType.SHIFT_RIGHT)) {
+                    return;
                 }
-                return;
             }
 
             if (event.getAction().equals(InventoryAction.HOTBAR_SWAP)) {

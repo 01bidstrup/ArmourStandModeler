@@ -11,6 +11,7 @@ import org.bukkit.conversations.*;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
+import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.EntityEquipment;
 import org.bukkit.inventory.Inventory;
@@ -272,7 +273,11 @@ public final class ArmourStandMainGUI implements InventoryGUI {
 
         if (Arrays.stream(UNLOCKED_SLOTS).noneMatch(i -> i == slot)) {
             event.setCancelled(true);
+        } else if (event.getAction().equals(InventoryAction.CLONE_STACK)) {
+            return;
         }
+
+
 
         Player player = (Player) event.getWhoClicked();
         boolean isPlayerCreative = player.getGameMode().equals(GameMode.CREATIVE);
@@ -284,6 +289,19 @@ public final class ArmourStandMainGUI implements InventoryGUI {
 
         // the item in the clicked slot prior to the event going through
         ItemStack clickedItem = event.getCurrentItem();
+
+        // check if an item was shift clicked from the player inventory
+        if (event.getSlot() != event.getRawSlot()
+                && (event.getClick().equals(ClickType.SHIFT_RIGHT) || event.getClick().equals(ClickType.SHIFT_LEFT))) {
+            if (clickedItem != null) {
+                // check if the equipment slot corresponding to the item clicked is free
+                if (armourStand.getEquipment().getItem(clickedItem.getType().getEquipmentSlot()).getType().equals(Material.AIR)) {
+                    player.getInventory().clear(event.getSlot());
+                    armourStand.getEquipment().setItem(clickedItem.getType().getEquipmentSlot(), clickedItem);
+                    event.getInventory().setContents(generateGUIButtons(armourStand));
+                }
+            }
+        }
 
         Function<Double, String> limbRotationApplicationFunction = angle -> "";
 
@@ -486,6 +504,8 @@ public final class ArmourStandMainGUI implements InventoryGUI {
 
             case 44: // close menu
                 player.closeInventory();
+                break;
+            default:
                 break;
         }
     }
