@@ -19,6 +19,8 @@ import java.util.Arrays;
 import java.util.function.Function;
 
 public final class ArmourStandMainGUI implements InventoryGUI {
+    private static final int[] UNLOCKED_SLOTS = new int[] {1, 10, 19, 28, 37, 39};
+
     private Inventory gui;
 
     public ArmourStandMainGUI(Player p, ArmorStand as) {
@@ -258,6 +260,9 @@ public final class ArmourStandMainGUI implements InventoryGUI {
     @Override
     public void handleGUIClickEvent(InventoryClickEvent event, ConversationFactory conversationFactory) {
         int slot = event.getRawSlot();
+        if (Arrays.stream(UNLOCKED_SLOTS).noneMatch(i -> i == slot)) {
+            event.setCancelled(true);
+        }
 
         Player player = (Player) event.getWhoClicked();
         boolean isPlayerCreative = player.getGameMode().equals(GameMode.CREATIVE);
@@ -440,7 +445,7 @@ public final class ArmourStandMainGUI implements InventoryGUI {
                 break;
 
             case 41: // open advanced options menu
-                player.closeInventory();
+                InventoryGUIController.getInstance().openInventory(player, armourStand, new ArmourStandAdvancedOptionsGUI(player, armourStand));
                 break;
 
             case 34: // armour stand set facing rotation
