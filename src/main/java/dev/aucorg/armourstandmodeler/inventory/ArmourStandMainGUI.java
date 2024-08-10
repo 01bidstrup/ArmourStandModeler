@@ -195,16 +195,19 @@ public final class ArmourStandMainGUI implements InventoryGUI {
                 .withName(ChatColor.GOLD + "Armour Stand Left Leg X Rotation")
                 .addLore(ChatColor.GRAY + "Click to change left leg X rotation")
                 .addLore(ChatColor.DARK_GRAY + "Current: " + ChatColor.YELLOW + Math.toDegrees(as.getLeftLegPose().getX()))
+                .hideAttributes()
                 .build();
         guiButtons[22] = new GUIItemBuilder(Material.LEATHER_LEGGINGS)
                 .withName(ChatColor.GOLD + "Armour Stand Left Leg Y Rotation")
                 .addLore(ChatColor.GRAY + "Click to change left leg Y rotation")
                 .addLore(ChatColor.DARK_GRAY + "Current: " + ChatColor.YELLOW + Math.toDegrees(as.getLeftLegPose().getY()))
+                .hideAttributes()
                 .build();
         guiButtons[23] = new GUIItemBuilder(Material.LEATHER_LEGGINGS)
                 .withName(ChatColor.GOLD + "Armour Stand Left Leg Z Rotation")
                 .addLore(ChatColor.GRAY + "Click to change left leg Z rotation")
                 .addLore(ChatColor.DARK_GRAY + "Current: " + ChatColor.YELLOW + Math.toDegrees(as.getLeftLegPose().getZ()))
+                .hideAttributes()
                 .build();
 
         // right leg rotation gui buttons
@@ -212,16 +215,19 @@ public final class ArmourStandMainGUI implements InventoryGUI {
                 .withName(ChatColor.GOLD + "Armour Stand Right Leg X Rotation")
                 .addLore(ChatColor.GRAY + "Click to change right leg X rotation")
                 .addLore(ChatColor.DARK_GRAY + "Current: " + ChatColor.YELLOW + Math.toDegrees(as.getRightLegPose().getX()))
+                .hideAttributes()
                 .build();
         guiButtons[25] = new GUIItemBuilder(Material.LEATHER_LEGGINGS)
                 .withName(ChatColor.GOLD + "Armour Stand Right Leg Y Rotation")
                 .addLore(ChatColor.GRAY + "Click to change right leg Y rotation")
                 .addLore(ChatColor.DARK_GRAY + "Current: " + ChatColor.YELLOW + Math.toDegrees(as.getRightLegPose().getY()))
+                .hideAttributes()
                 .build();
         guiButtons[26] = new GUIItemBuilder(Material.LEATHER_LEGGINGS)
                 .withName(ChatColor.GOLD + "Armour Stand Right Leg Z Rotation")
                 .addLore(ChatColor.GRAY + "Click to change right leg Z rotation")
                 .addLore(ChatColor.DARK_GRAY + "Current: " + ChatColor.YELLOW + Math.toDegrees(as.getRightLegPose().getZ()))
+                .hideAttributes()
                 .build();
 
         // armour stand location manipulation buttons
