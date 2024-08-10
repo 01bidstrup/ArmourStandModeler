@@ -19,7 +19,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.Arrays;
-import java.util.Objects;
 import java.util.function.Function;
 
 public final class ArmourStandMainGUI implements InventoryGUI {
@@ -280,7 +279,7 @@ public final class ArmourStandMainGUI implements InventoryGUI {
 
 
         Player player = (Player) event.getWhoClicked();
-        boolean isPlayerCreative = player.getGameMode().equals(GameMode.CREATIVE);
+        boolean isPlayerCreativeOrSpectator = player.getGameMode().equals(GameMode.CREATIVE) || player.getGameMode().equals(GameMode.SPECTATOR);
         ArmorStand armourStand = ArmourStandInteractionMap.getInstance().getArmourStand(player);
 
         // the item on the cursor prior to the event going through
@@ -312,7 +311,7 @@ public final class ArmourStandMainGUI implements InventoryGUI {
 
             // helmet set item
             case 0:
-                if (!isPlayerCreative) break;
+                if (!isPlayerCreativeOrSpectator) break;
                 if (!isCursorAir) {
                     event.getInventory().setItem(1, cursor);
                 } else break;
@@ -322,7 +321,7 @@ public final class ArmourStandMainGUI implements InventoryGUI {
 
             // chestplate set item
             case 9:
-                if (!isPlayerCreative) break;
+                if (!isPlayerCreativeOrSpectator) break;
                 if (!isCursorAir) {
                     event.getInventory().setItem(10, cursor);
                 } else break;
@@ -332,7 +331,7 @@ public final class ArmourStandMainGUI implements InventoryGUI {
 
             // leggings set item
             case 18:
-                if (!isPlayerCreative) break;
+                if (!isPlayerCreativeOrSpectator) break;
                 if (!isCursorAir) {
                     event.getInventory().setItem(19, cursor);
                 } else break;
@@ -342,7 +341,7 @@ public final class ArmourStandMainGUI implements InventoryGUI {
 
             // boots set item
             case 27:
-                if (!isPlayerCreative) break;
+                if (!isPlayerCreativeOrSpectator) break;
                 if (!isCursorAir) {
                     event.getInventory().setItem(28, cursor);
                 } else break;
@@ -352,7 +351,7 @@ public final class ArmourStandMainGUI implements InventoryGUI {
 
             // left hand set item
             case 36:
-                if (!isPlayerCreative) break;
+                if (!isPlayerCreativeOrSpectator) break;
                 if (!isCursorAir) {
                     event.getInventory().setItem(37, cursor);
                 } else break;
@@ -362,7 +361,7 @@ public final class ArmourStandMainGUI implements InventoryGUI {
 
             // right hand set item
             case 38:
-                if (!isPlayerCreative) break;
+                if (!isPlayerCreativeOrSpectator) break;
                 if (!isCursorAir) {
                     event.getInventory().setItem(39, cursor);
                 } else break;
@@ -491,7 +490,7 @@ public final class ArmourStandMainGUI implements InventoryGUI {
             case 43: // kill armour stand
                 // in survival or adventure mode the player should get back their armour stand
                 // when killed via the gui
-                if (!isPlayerCreative) {
+                if (!isPlayerCreativeOrSpectator) {
                     ItemStack dropItem = new ItemStack(Material.ARMOR_STAND, 1);
                     Location dropLocation = armourStand.getLocation();
                     armourStand.getLocation().getWorld().dropItemNaturally(dropLocation, dropItem);
