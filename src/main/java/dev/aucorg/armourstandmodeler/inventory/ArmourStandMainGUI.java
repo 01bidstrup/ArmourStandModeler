@@ -19,7 +19,8 @@ import org.bukkit.util.EulerAngle;
 import java.util.Arrays;
 import java.util.function.Function;
 
-public class ArmourStandMainGUI {
+public final class ArmourStandMainGUI {
+    private ArmourStandMainGUI() {};
     public static Inventory createGUI(Player p, ArmorStand as) {
         String armourStandName = (as.getCustomName() == null) ? Integer.toString(as.getEntityId())  : as.getCustomName();
 
