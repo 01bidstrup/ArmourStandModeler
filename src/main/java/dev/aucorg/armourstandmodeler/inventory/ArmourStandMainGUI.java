@@ -207,6 +207,7 @@ public final class ArmourStandMainGUI {
                 .addLore(ChatColor.DARK_GRAY + "Current: " + ChatColor.YELLOW + Math.toDegrees(as.getRightLegPose().getZ()))
                 .build();
 
+        // armour stand location manipulation buttons
         guiButtons[34] = new GUIItemBuilder(Material.COMPASS)
                 .withName(ChatColor.GOLD + "Armour Stand Facing Rotation")
                 .addLore(ChatColor.GRAY + "Click to change armour stand facing rotation")
@@ -218,11 +219,13 @@ public final class ArmourStandMainGUI {
                 .addLore(ChatColor.GRAY + "Click to move the armour stand")
                 .build();
 
+        // kill button
         guiButtons[43] = new GUIItemBuilder(Material.SKELETON_SKULL)
                 .withName(ChatColor.GOLD + "Kill Armour Stand")
                 .addLore(ChatColor.GRAY + "Click to " + ChatColor.RED + "kill " + ChatColor.GRAY + "the armour stand")
                 .addLore(ChatColor.GRAY + "this can " + ChatColor.UNDERLINE + "NOT" + ChatColor.GRAY + " be undone!")
                 .build();
+        // close button
         guiButtons[44] = new GUIItemBuilder(Material.BARRIER)
                 .withName(ChatColor.RED + "Close Menu")
                 .build();
@@ -247,7 +250,11 @@ public final class ArmourStandMainGUI {
         Function<Double, String> limbRotationApplicationFunction = angle -> "";
 
         switch (slot) {
-            // helmet
+            // When setting equipment item if the player is in creative mode
+            // and they click on the gui icon instead of the slot where the item should be placed
+            // the item is instead copied into the equipment slot and kept on the players cursor
+
+            // helmet set item
             case 0:
                 if (!isPlayerCreative) break;
                 if (!isCursorAir) {
@@ -257,7 +264,7 @@ public final class ArmourStandMainGUI {
                 armourStand.getEquipment().setHelmet(cursor);
                 break;
 
-            // chestplate
+            // chestplate set item
             case 9:
                 if (!isPlayerCreative) break;
                 if (!isCursorAir) {
@@ -267,7 +274,7 @@ public final class ArmourStandMainGUI {
                 armourStand.getEquipment().setChestplate(cursor);
                 break;
 
-            // leggings
+            // leggings set item
             case 18:
                 if (!isPlayerCreative) break;
                 if (!isCursorAir) {
@@ -277,7 +284,7 @@ public final class ArmourStandMainGUI {
                 armourStand.getEquipment().setLeggings(cursor);
                 break;
 
-            // boots
+            // boots set item
             case 27:
                 if (!isPlayerCreative) break;
                 if (!isCursorAir) {
@@ -287,7 +294,7 @@ public final class ArmourStandMainGUI {
                 armourStand.getEquipment().setBoots(cursor);
                 break;
 
-            // left hand
+            // left hand set item
             case 36:
                 if (!isPlayerCreative) break;
                 if (!isCursorAir) {
@@ -297,7 +304,7 @@ public final class ArmourStandMainGUI {
                 armourStand.getEquipment().setItemInOffHand(cursor);
                 break;
 
-            // right hand
+            // right hand set item
             case 38:
                 if (!isPlayerCreative) break;
                 if (!isCursorAir) {
@@ -391,10 +398,8 @@ public final class ArmourStandMainGUI {
                 startConversation(player, conversationFactory, limbRotationApplicationFunction);
                 break;
 
-
-
-            // set armour stand name
-            case 40:
+            case 40: // set armour stand name
+                // shift right clicking resets name instead of chat input
                 if (event.getClick().equals(ClickType.SHIFT_RIGHT)) {
                     armourStand.setCustomName(null);
                     armourStand.setCustomNameVisible(false);
@@ -411,8 +416,9 @@ public final class ArmourStandMainGUI {
                 nameConversation.begin();
                 break;
 
-
-            case 34:
+            case 34: // armour stand set facing rotation
+                // shift right clicking faces the armour stand towards the player instead of
+                // using the chat to input degrees
                 if (event.getClick().equals(ClickType.SHIFT_RIGHT)) {
                     Location newLocation = armourStand.getLocation();
                     newLocation.setYaw(player.getLocation().getYaw() - 180f);
@@ -429,7 +435,8 @@ public final class ArmourStandMainGUI {
                 player.closeInventory();
                 facingConversation.begin();
                 break;
-            case 35:
+
+            case 35: // move armour stand relative to itself
                 Conversation moveConversation = conversationFactory
                         .withFirstPrompt(new ArmourStandMovePrompt(armourStand))
                         .withLocalEcho(false)
@@ -439,7 +446,9 @@ public final class ArmourStandMainGUI {
                 moveConversation.begin();
                 break;
 
-            case 43:
+            case 43: // kill armour stand
+                // in survival or adventure mode the player should get back their armour stand
+                // when killed via the gui
                 if (!isPlayerCreative) {
                     ItemStack dropItem = new ItemStack(Material.ARMOR_STAND, 1);
                     Location dropLocation = armourStand.getLocation();
@@ -449,7 +458,9 @@ public final class ArmourStandMainGUI {
                 armourStand.getLocation().getWorld().playSound(armourStand.getLocation(), Sound.ENTITY_ARMOR_STAND_BREAK, 1, 1);
 
                 armourStand.remove();
-            case 44:
+            // intentional case overflow since killing the armour stand should also result the menu closing
+
+            case 44: // close menu
                 player.closeInventory();
                 break;
         }
